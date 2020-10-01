@@ -1,2 +1,2 @@
 <?php
-echo "Привет мир!";
+echo $_SERVER['REQUEST_URI'];
