@@ -159,11 +159,6 @@ a.article:hover {
   color: black !important;
 }
 
-/* ---------------------------------------------------
-    CONTENT STYLE
------------------------------------------------------ */
-
-
 .sign {
   float: right; /* Выравнивание по правому краю */
   border: 1px solid #333; /* Параметры рамки */
@@ -186,10 +181,14 @@ a.article:hover {
 }
 
 .body-content {
-  margin-top: 12vh;
+  margin-top: 20vh;
 }
 .footer
 {
   margin-top: 5vh;
   background-color: #bdc3c7;
+}
+
+.nav-tabs {
+  margin-bottom: 15px;
 }
