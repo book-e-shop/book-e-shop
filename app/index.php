@@ -1,5 +1,5 @@
 <?php
-include getcwd() . "/php/header.php";
+include getcwd() . "/header.php";
 ?>
 
 <div class="container-fluid body-content">
@@ -7,5 +7,5 @@ include getcwd() . "/php/header.php";
 </div>
 
 <?php
-include getcwd() . "/php/footer.php";
+include getcwd() . "/footer.php";
 ?>
