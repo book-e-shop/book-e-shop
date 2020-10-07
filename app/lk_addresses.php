@@ -22,6 +22,7 @@ if (isset($data['add_address'])) {
     $address->city = $data['city'];
     $address->street = $data['street'];
     $address->house = $data['house'];
+    $address->is_main_address  =  ($data['is_main_address'] == 'on') ? true : false;
 
     R::store($address);
 
@@ -47,26 +48,30 @@ if (isset($data['add_address'])) {
                     array(':user_id' => $user->id)
                 );
 
-
+                echo '<ul class="list-group">';
                 if (count($addresses) > 0) {
 
-                    echo '<ul class="list-group">';
+
                     foreach ($addresses as $address) {
                         $str = $address['zip_code'] . ' ' . $address['region'] . ' ' . $address['district'] . ' ' . $address['city'];
                         echo '<li class="list-group-item">' . $str . '</li>';
                     }
-                    echo '</ul>';
                 } else {
-                    echo '<h1> Адреса не найдены </h1>';
+                    echo '<li class="list-group-item"> <h1> Адреса не найдены </h1> </li>';
                 }
+                echo '<a href=""  class="btn btn-success" data-toggle="modal" data-target="#modalAddAddress">
+                        <h2>Добавить адресс</h2>
+                      </a>';
+                echo '</ul>';
                 ?>
+            <?php else : ?>
+
+                <h1>Страница не найдена</h1>
+
+            <?php endif; ?>
         </div>
     </div>
-    <div class="row">
-        <a href="" data-toggle="modal" data-target="#modalAddAddress">
-            <h2>Добавить адресс</i></h2>
-        </a>
-    </div>
+
 
     <div class="modal fade" id="modalAddAddress" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -104,7 +109,10 @@ if (isset($data['add_address'])) {
                             <label for="house">Дом</label>
                             <input type="text" class="form-control" name="house" id="house">
                         </div>
-
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" name="is_main_address" id="is_main_address">
+                            <label class="form-check-label" for="is_main_address">Основной адрес</label>
+                        </div>
 
                         <button type="submit" name="add_address" class="btn btn-success">Добавить</button>
                     </form>
@@ -117,11 +125,7 @@ if (isset($data['add_address'])) {
 
 
 </div>
-<?php else : ?>
 
-    <h1>Страница не найдена</h1>
-
-<?php endif; ?>
 
 </div>
 

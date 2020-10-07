@@ -35,7 +35,7 @@ include getcwd() . "/header.php";
                                 <?php echo $user->email; ?>
                             </div>
                             <div class="card-footer">
-                                <button class="btn btn-primary"> Редактировать </button>
+                                <a href="/lk_profile.php" class="btn btn-primary"> Редактировать </a>
                             </div>
                         </div>
                     </div>
@@ -54,10 +54,18 @@ include getcwd() . "/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Основной адрес доставки</h5>
-                                This is some text within a card body.
+                                <?php
+
+                                $addressess = R::getAll(
+                                    'select * from addresses where users_id= :user_id and is_main_address =:is_main_address',
+                                    array(':user_id' => $user->id, ':is_main_address' => 1)
+                                );
+                                $address = array_shift($addressess);
+                                echo  $address["region"];
+                                ?>
                             </div>
                             <div class="card-footer">
-                                <a href="/addresses.php" class="btn btn-primary"> Редактировать </a>
+                                <a href="/lk_addresses.php" class="btn btn-primary"> Редактировать </a>
                             </div>
                         </div>
                     </div>

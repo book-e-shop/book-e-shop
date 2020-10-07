@@ -149,7 +149,7 @@ if (isset($data['do_login'])) {
                 <h2><i class="fas fa-bars"></i> Каталог</h2>
             </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <input class="form-control" type="search" placeholder="Поиск" aria-label="Search">
         </div>
 
@@ -159,7 +159,7 @@ if (isset($data['do_login'])) {
             </a>
 
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
             <?php if (isset($_SESSION['logged_user'])) : ?>
 
                 <a href="/lk_main.php">
