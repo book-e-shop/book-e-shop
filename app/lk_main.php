@@ -82,7 +82,7 @@ include getcwd() . "/header.php";
         </div>
     <?php else : ?>
 
-        <h1>Страница не найдена</h1>
+        <?php echo "<script>window.location = '404.php'</script>"; ?>
 
     <?php endif; ?>
 

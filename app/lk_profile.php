@@ -52,7 +52,7 @@ if (isset($_SESSION['logged_user']))
                 </form>
             <?php else : ?>
 
-                <h1>Страница не найдена</h1>
+                <?php echo "<script>window.location = '404.php'</script>"; ?>
 
             <?php endif; ?>
         </div>

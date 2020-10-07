@@ -66,7 +66,7 @@ if (isset($data['add_address'])) {
                 ?>
             <?php else : ?>
 
-                <h1>Страница не найдена</h1>
+                <?php echo "<script>window.location = '404.php'</script>"; ?>
 
             <?php endif; ?>
         </div>
@@ -84,7 +84,7 @@ if (isset($data['add_address'])) {
                 </div>
 
                 <div class="modal-body">
-                    <form action='/addresses.php' method='post'>
+                    <form action='/lk_addresses.php' method='post'>
                         <div class="form-group">
                             <label for="zip_code">Индекс</label>
                             <input type="text" class="form-control" name="zip_code" id="zip_code">
