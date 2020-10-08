@@ -1,6 +1,7 @@
 <?php
-include getcwd() . "header.php";
+include getcwd() . "/header.php";
 ?>
+
 
 <div class='container body-content'>
     <div class="row">
@@ -162,5 +163,5 @@ include getcwd() . "header.php";
 </nav>
 
 <?php
-include getcwd() . "footer.php";
+include getcwd() . "/footer.php";
 ?>

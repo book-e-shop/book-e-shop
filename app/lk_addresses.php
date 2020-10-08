@@ -29,6 +29,7 @@ if (isset($data['add_address'])) {
     $user->ownAddressesList[] = $address;
 
     R::store($user);
+    echo "<script>window.location = 'lk_addresses.php'</script>";
 }
 ?>
 

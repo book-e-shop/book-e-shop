@@ -46,7 +46,7 @@ include getcwd() . "/header.php";
                                 This is some text within a card body.
                             </div>
                             <div class="card-footer">
-                                <button class="btn btn-primary"> Редактировать </button>
+                                <button class="btn btn-primary" disabled> Редактировать </button>
                             </div>
                         </div>
                     </div>
@@ -56,12 +56,19 @@ include getcwd() . "/header.php";
                                 <h5 class="card-title">Основной адрес доставки</h5>
                                 <?php
 
-                                $addressess = R::getAll(
+                                $addresses = R::getAll(
                                     'select * from addresses where users_id= :user_id and is_main_address =:is_main_address',
                                     array(':user_id' => $user->id, ':is_main_address' => 1)
                                 );
-                                $address = array_shift($addressess);
-                                echo  $address["region"];
+                                $address = array_shift($addresses);
+
+                                if ($address != null) {
+                                    $str = $address['zip_code'] . ' ' . $address['region'] . ' ' . $address['district'] . ' ' . $address['city'];
+                                    echo  $str;
+                                } else {
+                                    echo 'Адрес отсутсвует';
+                                }
+
                                 ?>
                             </div>
                             <div class="card-footer">

@@ -1,4 +1,4 @@
-<nav class="navbar footer fixed-bottom">
+<nav class="navbar footer fixed-bottom"  >
     <div class="col-md-6">
         <h3>О нас</h3>
         <ul class="nav">
@@ -15,7 +15,7 @@
         </ul>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6" >
         <h3>Социальные сети</h3>
         <ul class="nav">
             <li class="nav-item">

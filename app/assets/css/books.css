@@ -182,9 +182,9 @@ a.article:hover {
 
 .body-content {
   margin-top: 20vh;
+  margin-bottom: 20vh;
 }
-.footer
-{
+.footer {
   margin-top: 5vh;
   background-color: #bdc3c7;
 }
