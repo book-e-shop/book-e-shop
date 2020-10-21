@@ -1,13 +1,9 @@
 <?php
-// Подключаем библиотеку RedBeanPHP
-require "libs/rb-mysql.php";
 
-// Подключаемся к БД
-R::setup( 'mysql:host=localhost;dbname=book_shop',
-        'root', '' );
+$connect = mysqli_connect('localhost', 'root', '', 'book_shop');
 
-// Проверка подключения к БД
-if(!R::testConnection()) die('No DB connection!');
+if (!$connect) {
+        die('Error connect to DataBase');
+}
 
-session_start(); // Создаем сессию для авторизации
 ?>

@@ -1,120 +1,3 @@
-<?php
-require "db.php"; // подключаем файл для соединения с БД
-
-// Создаем переменную для сбора данных от пользователя по методу POST
-$data = $_POST;
-
-// Пользователь нажимает на кнопку "Зарегистрировать" и код начинает выполняться
-if (isset($data['do_signup'])) {
-
-    // Регистрируем
-    // Создаем массив для сбора ошибок
-    $errors = array();
-
-    // Проводим проверки
-
-    if ($data['password_2'] != $data['password']) {
-
-        $errors[] = "Повторный пароль введен не верно!";
-    }
-    // функция mb_strlen - получает длину строки
-    // Если логин будет меньше 5 символов и больше 90, то выйдет ошибка
-    if (mb_strlen($data['login']) < 5 || mb_strlen($data['login']) > 90) {
-
-        $errors[] = "Недопустимая длина логина";
-    }
-
-    if (mb_strlen($data['name']) < 3 || mb_strlen($data['name']) > 50) {
-
-        $errors[] = "Недопустимая длина имени";
-    }
-
-    if (mb_strlen($data['surname']) < 5 || mb_strlen($data['surname']) > 50) {
-
-        $errors[] = "Недопустимая длина фамилии";
-    }
-
-    if (mb_strlen($data['password']) < 2 || mb_strlen($data['password']) > 8) {
-
-        $errors[] = "Недопустимая длина пароля (от 2 до 8 символов)";
-    }
-
-    // Проверка на уникальность логина
-    if (R::count('users', "login = ?", array($data['login'])) > 0) {
-
-        $errors[] = "Пользователь с таким логином существует!";
-    }
-
-    // Проверка на уникальность email
-
-    if (R::count('users', "email = ?", array($data['email'])) > 0) {
-
-        $errors[] = "Пользователь с таким Email существует!";
-    }
-
-
-    if (empty($errors)) {
-
-        // Все проверено, регистрируем
-        // Создаем таблицу users
-        $user = R::dispense('users');
-
-        // добавляем в таблицу записи
-        $user->login = $data['login'];
-        $user->email = $data['email'];
-        $user->name = $data['name'];
-        $user->surname = $data['surname'];
-
-        // Хешируем пароль
-        $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
-
-        // Сохраняем таблицу
-        R::store($user);
-        echo '<div style="color: green; ">Вы успешно зарегистрированы! Можно <a href="login.php">авторизоваться</a>.</div><hr>';
-        header('Location: index.php');
-    } else {
-        // array_shift() извлекает первое значение массива array и возвращает его, сокращая размер array на один элемент. 
-        echo '<div style="color: red; ">' . array_shift($errors) . '</div><hr>';
-    }
-}
-
-$data = $_POST;
-
-// Пользователь нажимает на кнопку "Авторизоваться" и код начинает выполняться
-if (isset($data['do_login'])) {
-    // Создаем массив для сбора ошибок
-    $errors = array();
-
-    // Проводим поиск пользователей в таблице users
-    $user = R::findOne('users', 'login = ?', array($data['login']));
-    echo '<div style="color: red; ">' . $data['login'] . '</div><hr>';
-
-    if ($user) {
-
-        // Если логин существует, тогда проверяем пароль
-        if (password_verify($data['password'], $user->password)) {
-
-            // Все верно, пускаем пользователя
-            $_SESSION['logged_user'] = $user;
-
-            // Редирект на главную страницу
-            header('Location: index.php');
-        } else {
-
-            $errors[] = 'Пароль неверно введен!';
-        }
-    } else {
-        $errors[] = 'Пользователь с таким логином не найден!';
-    }
-
-    if (!empty($errors)) {
-
-        echo '<div style="color: red; ">' . array_shift($errors) . '</div><hr>';
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 
 <html>
@@ -205,7 +88,7 @@ if (isset($data['do_login'])) {
 
                     <div class='tab-content'>
                         <div class="tab-pane fade show active" id="Login">
-                            <form action='/' method='post'>
+                            <form action='signin.php' method='post'>
                                 <div class="form-group">
                                     <label for="login">Логин</label>
                                     <input type="text" id="login" name='login' class="form-control" required>
@@ -220,7 +103,7 @@ if (isset($data['do_login'])) {
                         </div>
 
                         <div class="tab-pane fade" id="Registration">
-                            <form action='/' method='post'>
+                            <form action='signup.php' method='post'>
                                 <div class="form-group">
                                     <label for="surname">Фамилия</label>
                                     <input type="text" id="surname" name='surname' class="form-control" required>
@@ -242,8 +125,8 @@ if (isset($data['do_login'])) {
                                     <input type="password" id="password" name='password' class="form-control validate" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="password_2">Повторите пароль</label>
-                                    <input type="password" id="password_2" name='password_2' class="form-control validate" required>
+                                    <label for="password_confirm">Повторите пароль</label>
+                                    <input type="password" id="password_confirm" name='password_confirm' class="form-control validate" required>
                                 </div>
 
                                 <button type="submit" name='do_signup' class="btn btn-primary" data-toggle="button">Зарегистрироваться</button>
