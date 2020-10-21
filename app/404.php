@@ -28,7 +28,7 @@ if (isset($_SESSION['logged_user']))
 </div>
 
 
-</div>
+
 
 
 

@@ -1,4 +1,5 @@
 <?php
+$title = "Книжный  магазин";
 include getcwd() . "/header.php";
 ?>
 

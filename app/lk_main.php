@@ -1,4 +1,5 @@
 <?php
+$title = "Личный кабинет";
 include getcwd() . "/header.php";
 ?>
 

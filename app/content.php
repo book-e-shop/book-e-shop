@@ -1,4 +1,5 @@
 <?php
+$title = "Каталог";
 include getcwd() . "/header.php";
 ?>
 

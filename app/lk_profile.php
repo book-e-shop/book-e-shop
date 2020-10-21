@@ -1,4 +1,5 @@
 <?php
+$title = "Профиль";
 include getcwd() . "/header.php";
 ?>
 

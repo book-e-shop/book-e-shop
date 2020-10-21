@@ -1,4 +1,5 @@
 <?php
+$title = "Адрес";
 include getcwd() . "/header.php";
 ?>
 

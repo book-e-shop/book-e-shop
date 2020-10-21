@@ -1,4 +1,4 @@
-<nav class="navbar footer fixed-bottom"  >
+<nav class="navbar footer fixed-bottom">
     <div class="col-md-6">
         <h3>О нас</h3>
         <ul class="nav">
@@ -12,10 +12,14 @@
                 <a class="nav-link disabled" href="#" aria-disabled="true">Оплата</a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="/sitemap.php" >Карта сайта</a>
+            </li>
+
         </ul>
     </div>
 
-    <div class="col-md-6" >
+    <div class="col-md-6">
         <h3>Социальные сети</h3>
         <ul class="nav">
             <li class="nav-item">
