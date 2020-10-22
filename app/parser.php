@@ -13,7 +13,7 @@ function extractLinks($html)
         $linkText = $link->nodeValue;
         $linkHref = $link->getAttribute('href');
 
-        $extractedLinks[] = array($linkHref => $linkText);        
+        $extractedLinks[$linkHref] = $linkText;
     }
 
     return $extractedLinks;
