@@ -1,7 +1,7 @@
 <?php
 
-session_start();
-require "db.php"; 
+
+require "db.php";
 
 $name = $_POST['name'];
 $surname = $_POST['surname'];
@@ -34,24 +34,23 @@ if (isset($_POST['do_signup'])) {
         $errors[] = "Недопустимая длина пароля (от 2 до 8 символов)";
     }
 
-    $check_user = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$login'");    
+    $check_user = mysqli_query($connect, "SELECT * FROM `users` WHERE `login` = '$login'");
 
     if (mysqli_num_rows($check_user) != 0) {
         $errors[] = "Пользователь с таким логином уже существует";
-    }  
+    }
 
     // сделать проверку на уникальность логина и почты
 
     if (empty($errors)) {
 
-        $password = password_hash($data['password'], PASSWORD_DEFAULT);        
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
         mysqli_query($connect, "INSERT INTO `users` (`id`, `login`, `email`, `name`, `surname`, `password`) VALUES (NULL, '$login', '$email', '$name', '$surname', '$password')");
 
         header('Location: index.php');
-
     } else {
         // array_shift() извлекает первое значение массива array и возвращает его, сокращая размер array на один элемент. 
-        echo '<div style="color: red; ">' . array_shift($errors). '</div><hr>';
+        echo '<div style="color: red; ">' . array_shift($errors) . '</div><hr>';
     }
 }

@@ -1,7 +1,12 @@
 <?php
+require_once "db.php";
+
 $title = "Личный кабинет";
 include getcwd() . "/header.php";
+
+
 ?>
+
 
 
 <div class="container body-content">

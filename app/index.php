@@ -231,12 +231,11 @@ include getcwd() . "/header.php";
     <div class="row">
         <div class="col">
             <div class="jumbotron">
-
                 <h1 class="display-4">Интересное</h1>
                 <p class="lead">Агата Кристи. Десять негритят</p>
                 <hr class="my-4">
                 <p>Роман "Десять негритят" – один из величайших детективных произведений в истории.</p>
-                <a class="btn btn-primary btn-lg" href="info_book.html" role="button">Подробнее</a>
+                <a class="btn btn-primary btn-lg" href="404.html" role="button">Подробнее</a>
             </div>
         </div>
     </div>
@@ -248,7 +247,7 @@ include getcwd() . "/header.php";
     </div>
     <div class="row">
         <div class="col align-items-stretch">
-            <a href="info_book.html">
+            <a href="/404.php">
                 <div class="card  h-50" style="width: 18rem;">
                     <img src="../assets/images/10.jpeg" height="256px" alt="...">
                     <div class="card-body">
@@ -259,21 +258,25 @@ include getcwd() . "/header.php";
         </div>
 
         <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/alice.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Льюис Кэрролл. Алиса в стране чудес. Алиса в зазеркалье</p>
+            <a href="/404.php">
+                <div class="card  h-50" style="width: 18rem;">
+                    <img src="../assets/images/alice.jpg" height="256px" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Льюис Кэрролл. Алиса в стране чудес. Алиса в зазеркалье</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/capdaut.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">А. С. Пушкин. Капитанская дочка</p>
+            <a href="/404.php">
+                <div class="card  h-50" style="width: 18rem;">
+                    <img src="../assets/images/capdaut.jpg" height="256px" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">А. С. Пушкин. Капитанская дочка</p>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <div class="col align-items-stretch">

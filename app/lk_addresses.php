@@ -1,4 +1,6 @@
 <?php
+require_once "db.php";
+
 $title = "Адрес";
 include getcwd() . "/header.php";
 ?>

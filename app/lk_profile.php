@@ -1,4 +1,7 @@
 <?php
+
+require_once "db.php";
+
 $title = "Профиль";
 include getcwd() . "/header.php";
 ?>
