@@ -13,7 +13,9 @@ function extractLinks($html)
         $linkText = $link->nodeValue;
         $linkHref = $link->getAttribute('href');
 
-        $extractedLinks[$linkHref] = $linkText;
+        if(strlen(trim($linkHref)) != 0 && $linkHref[0] != '#' && strlen(trim($linkText)) != 0) {
+            $extractedLinks[$linkText] = $linkHref;
+        }        
     }
 
     return $extractedLinks;
