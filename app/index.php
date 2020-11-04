@@ -1,4 +1,5 @@
 <?php
+require 'db.php';
 $title = "Книжный  магазин";
 include getcwd() . "/header.php";
 ?>
@@ -17,7 +18,7 @@ include getcwd() . "/header.php";
                     <div class="carousel-item active">
                         <div class="jumbotron bg-light">
                             <div class="container">
-                                <h1 class="display-4">Акция</h1>
+                                <h1 id='stock' class="display-4">Акция</h1>
                                 <p class="lead">Две книги по цене 1</p>
                             </div>
                         </div>
@@ -52,379 +53,47 @@ include getcwd() . "/header.php";
     </div>
     <div class="row">
         <div class="col align-items-stretch">
-            <h1>Новинки</h1>
+            <h1 id='newBooks'>Новинки</h1>
         </div>
-    </div>
-    <div class="row">
-        <div class="col align-items-stretch">
-            <a href="info_book.html">
-                <div class="card  h-50" style="width: 18rem;">
-                    <img src="../assets/images/10.jpeg" height="256px" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Агата Кристи. Десять негритят</p>
+    </div>    
+
+    <div class='container body-content'>
+        <div class='row'>
+            <div class='row'>
+
+                <?php
+                $amountBooks = 0;
+
+                $books = mysqli_query($connect, "SELECT * FROM `books`");
+
+                while ($book = mysqli_fetch_assoc($books)) {
+                    $amountBooks++;
+                ?>
+
+                    <div class="col">
+                        <figure class="sign">
+                            <a href=<?php echo 'info_book.php?' . $book['id'] ?>><img src=<?php echo $book['cover'] ?> width="180px" height="256px"></a>
+                            <figcaption>
+                                <?php echo $book['author'] . '. ' . wordwrap($book['name'], 30, "<br/>", 1) ?>
+                            </figcaption>
+                        </figure>
                     </div>
-                </div>
-            </a>
-        </div>
 
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/alice.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Льюис Кэрролл. Алиса в стране чудес. Алиса в зазеркалье</p>
-                </div>
-            </div>
-        </div>
+                <?php
+                    if ($amountBooks != 0 && $amountBooks % 5 == 0) {
+                        echo "</div>";
+                        echo "<div class='row'>";
+                    }
+                }
+                ?>
 
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/capdaut.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">А. С. Пушкин. Капитанская дочка</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/dads.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">И. С. Тургенев. Отцы и дети</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/dead.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Н. В. Гоголь. Мертвые души</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/friends.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Эрих Мария Ремарк. Три товарища</p>
-                </div>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/kill.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Агата Кристи. Убийство в восточном экспрессе</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/loser.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">С. Я. Маршак. Вот такой рассеянный</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/master.jpeg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">М. В. Булгаков. Мастер и маргарита</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/mathhist.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Энн Руни. История математики</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/sherlock.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Артур Конан Дойл. Шерлок Холмс</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/ship.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Джанни Родари. Приключения Чиполино</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/top.jpeg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Никколо Макиавелли. Государь</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/unknown.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Н. Н. Носов. Незнайка на Луне</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/war.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Л. Н. Толстой. Война и мир</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/mathhist.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Энн Руни. История математики</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/sherlock.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Артур Конан Дойл. Шерлок Холмс</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/ship.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Джанни Родари. Приключения Чиполино</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="jumbotron">
-                <h1 class="display-4">Интересное</h1>
-                <p class="lead">Агата Кристи. Десять негритят</p>
-                <hr class="my-4">
-                <p>Роман "Десять негритят" – один из величайших детективных произведений в истории.</p>
-                <a class="btn btn-primary btn-lg" href="404.html" role="button">Подробнее</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col align-items-stretch">
-            <h1>Бестселлеры</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col align-items-stretch">
-            <a href="/404.php">
-                <div class="card  h-50" style="width: 18rem;">
-                    <img src="../assets/images/10.jpeg" height="256px" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Агата Кристи. Десять негритят</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col align-items-stretch">
-            <a href="/404.php">
-                <div class="card  h-50" style="width: 18rem;">
-                    <img src="../assets/images/alice.jpg" height="256px" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">Льюис Кэрролл. Алиса в стране чудес. Алиса в зазеркалье</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col align-items-stretch">
-            <a href="/404.php">
-                <div class="card  h-50" style="width: 18rem;">
-                    <img src="../assets/images/capdaut.jpg" height="256px" alt="...">
-                    <div class="card-body">
-                        <p class="card-text">А. С. Пушкин. Капитанская дочка</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/dads.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">И. С. Тургенев. Отцы и дети</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/dead.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Н. В. Гоголь. Мертвые души</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/friends.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Эрих Мария Ремарк. Три товарища</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/kill.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Агата Кристи. Убийство в восточном экспрессе</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/loser.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">С. Я. Маршак. Вот такой рассеянный</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/master.jpeg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">М. В. Булгаков. Мастер и маргарита</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/mathhist.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Энн Руни. История математики</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/sherlock.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Артур Конан Дойл. Шерлок Холмс</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/ship.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Джанни Родари. Приключения Чиполино</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/top.jpeg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Никколо Макиавелли. Государь</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/unknown.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Н. Н. Носов. Незнайка на Луне</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/war.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Л. Н. Толстой. Война и мир</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/mathhist.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Энн Руни. История математики</p>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/sherlock.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Артур Конан Дойл. Шерлок Холмс</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col align-items-stretch">
-            <div class="card  h-50" style="width: 18rem;">
-                <img src="../assets/images/ship.jpg" height="256px" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Джанни Родари. Приключения Чиполино</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col align-items-stretch">
-            <h1>Подборки</h1>
+            <h1 id='packs'>Подборки</h1>
         </div>
     </div>
 
@@ -433,7 +102,7 @@ include getcwd() . "/header.php";
             <div class="card text-white bg-secondary">
                 <div class="card-header">Топ-100</div>
                 <div class="card-body">
-                    <h5 class="card-title">Классическая литература</h5>
+                    <h5 id='classicBooks' class="card-title">Классическая литература</h5>
                     <p class="card-text">...</p>
                 </div>
             </div>
@@ -443,7 +112,7 @@ include getcwd() . "/header.php";
             <div class="card text-white bg-success">
                 <div class="card-header">Топ-100</div>
                 <div class="card-body">
-                    <h5 class="card-title">Детективы</h5>
+                    <h5 id='detectives' class="card-title">Детективы</h5>
                     <p class="card-text">...</p>
                 </div>
             </div>
@@ -453,7 +122,7 @@ include getcwd() . "/header.php";
             <div class="card text-white bg-danger">
                 <div class="card-header">Топ-100</div>
                 <div class="card-body">
-                    <h5 class="card-title">Биографии</h5>
+                    <h5 id='biographies' class="card-title">Биографии</h5>
                     <p class="card-text">...</p>
                 </div>
             </div>

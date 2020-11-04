@@ -26,12 +26,12 @@
 
         <div class="col-md-2">
             <a href="/">
-                <h2>Книжный магазин</h2>
+                <h2 id='mainPage'>Книжный магазин</h2>
             </a>
         </div>
         <div class="col-md-2">
             <a type="button" id="sidebarCollapse">
-                <h2><i class="fas fa-bars"></i> Каталог</h2>
+                <h2 id="catalog"><i class="fas fa-bars"></i> Каталог</h2>
             </a>
         </div>
         <div class="col-md-5">
@@ -40,7 +40,7 @@
 
         <div class="col-md-1">
             <a href="404.php">
-                <h2><i class="fas fa-shopping-cart"></i></h2>
+                <h2 id='shoppingCart'><i class="fas fa-shopping-cart"></i></h2>
             </a>
 
         </div>
@@ -60,7 +60,7 @@
             <?php else : ?>
 
                 <a href="" data-toggle="modal" data-target="#modalLoginForm">
-                    <h2><i class="fas fa-sign-in-alt"></i></h2>
+                    <h2 id='signIn'><i class="fas fa-sign-in-alt"></i></h2>
                 </a>
 
             <?php endif; ?>
@@ -147,14 +147,26 @@
             <i class="fas fa-arrow-left"></i>
         </div>
 
-
         <ul class="list-unstyled components">
             <p>Категории книг</p>
-            <li class="active"><a href="content.php"> Все книги</a> </li>
-            <li><a href="#">Классическая литература</a></li>
-            <li><a href="#">Детективы</a></li>
-            <li><a href="#">Для детей</a></li>
-            <li><a href="#">Исторические</a></li>
+            <li><a href="content.php?all"> Все книги</a> </li>
+
+            <?php
+            
+            $genre_column = mysqli_query($connect, "SELECT `genre` FROM `books`");
+            $genres = array();
+
+            while ($genre = mysqli_fetch_assoc($genre_column)) {
+
+                if (!in_array($genre['genre'], $genres)) {
+
+                    echo "<li><a href='content.php?" . $genre['genre'] . "'>" . $genre['genre'] . "</a></li>";  
+                    
+                    array_push($genres, $genre['genre']);
+                }                                
+            }
+
+            ?>
         </ul>
 
     </nav>
