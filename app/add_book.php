@@ -72,7 +72,7 @@ if (isset($_POST['add_book'])) {
                     </div>
                   </div>";
         }
-
+        echo $_SERVER['QUERY_STRING'];
         ?>
         <div class="row">
             <div class="col">

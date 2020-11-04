@@ -6,13 +6,7 @@ require_once "render_file.php";
 
 function generate_sitemap()
 {
-    $not_indexing = [
-        "render_file.php", "sitemap_generator.php",
-        "404.php", "header.php", "footer.php",
-        "logout.php", "parser.php",
-        "signup.php", "signin.php",
-        "db.php", "sitemap.php"
-    ];
+
 
     include getcwd() . '/parser.php';
     $path = getcwd();
