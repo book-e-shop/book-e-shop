@@ -2,9 +2,8 @@
 include getcwd() . "/header.php";
 ?>
 
-
 <?php
-$is_added = FALSE;
+
 if (isset($_POST['add_book'])) {
     require "db.php";
 
@@ -25,13 +24,13 @@ if (isset($_POST['add_book'])) {
 
     $create_table_query = "CREATE TABLE `books` (
                 `id` INT NOT NULL AUTO_INCREMENT,
-                `name` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci,
+                `name` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `description` TEXT(500) CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `author` VARCHAR(50)  CHARACTER SET utf8 COLLATE utf8_general_ci,
-                `genre` ENUM('Детектив','Любовный роман','Учебная и образовательная литература','Классическая литература','Биографии и мемуары'),
+                `genre` ENUM('Detective','Любовный роман','Учебная и образовательная литература','Классическая литература','Биографии и мемуары'),
                 `release_date` DATE,
                 `cover_type` ENUM('Твердый переплет','Мягкий переплет'),
-                `ISBN` VARCHAR(20)  CHARACTER SET utf8 COLLATE utf8_general_ci,
+                `ISBN` VARCHAR(13)  CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `publisher` VARCHAR(50)  CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `language` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `size_in_pages` DECIMAL,
@@ -40,7 +39,7 @@ if (isset($_POST['add_book'])) {
                 PRIMARY KEY (`id`)
                 ) ENGINE=InnoDB;";
 
-
+    $is_added = FALSE;
     if (mysqli_query($connect, 'select 1 from `books` LIMIT 1')) {
 
         move_uploaded_file($_FILES['cover']['tmp_name'], $cover);
@@ -82,14 +81,14 @@ if (isset($_POST['add_book'])) {
     </div>
     <div class="row">
         <div class="col">
-            <form id="form" method="post" action="add_book.php" enctype="multipart/form-data">
+            <form method="post" action="add_book.php" enctype="multipart/form-data">
 
 
                 <div class="form-group">
                     <label for="name">
                         <h4>Название книги</h4>
                     </label>
-                    <input id="name" name="name" class="form-control" type="text" maxlength="50">
+                    <input id="name" name="name" class="form-control" type="text">
                 </div>
 
 
@@ -97,14 +96,14 @@ if (isset($_POST['add_book'])) {
                     <label for="description">
                         <h4>Описание</h4>
                     </label>
-                    <textarea id="description" name="description" class="form-control" maxlength="500"></textarea>
+                    <textarea id="description" name="description" class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="author">
                         <h4>Автор</h4>
                     </label>
-                    <input id="author" name="author" class="form-control" type="text" maxlength="50">
+                    <input id="author" name="author" class="form-control" type="text">
                 </div>
 
 
@@ -168,7 +167,7 @@ if (isset($_POST['add_book'])) {
                     <label for="size_in_pages">
                         <h4>Объем издания</h4>
                     </label>
-                    <input id="size_in_pages" min="1" max="5000" name="size_in_pages" class="form-control" type="number">
+                    <input id="size_in_pages" name="size_in_pages" class="form-control" type="number">
                 </div>
 
                 <div class="form-group">
@@ -178,7 +177,7 @@ if (isset($_POST['add_book'])) {
                     <div class="form-group-prepend">
                         <span class="form-group-text">₽</span>
                     </div>
-                    <input id="price" min="0" max="1000000" name="price" class="form-control" type="number">
+                    <input id="price" name="price" class="form-control" type="number">
                 </div>
 
 
@@ -197,7 +196,11 @@ if (isset($_POST['add_book'])) {
     </div>
 </div>
 
-<script src="assets/js/formValidator.js"></script>
+
+
+
+
+
 <?php
 include getcwd() . "/footer.php";
 ?>

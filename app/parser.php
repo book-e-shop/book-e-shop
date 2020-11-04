@@ -1,22 +1,27 @@
 <?php
 
-function extractLinks($html)
+function extractHeaders($htmlContent)
 {
+    $htmlContent = mb_convert_encoding($htmlContent, 'HTML-ENTITIES', "UTF-8");
+
     $htmlDom = new DOMDocument;
-    $extractedLinks = array();
+    @$htmlDom->loadHTML($htmlContent);
 
-    @$htmlDom->loadHTML($html);
-    $links = $htmlDom->getElementsByTagName('a');
+    $extractedHeaders = array();
 
-    foreach ($links as $link) {
+    for ($i = 1; $i < 7; $i++) {
 
-        $linkText = $link->nodeValue;
-        $linkHref = $link->getAttribute('href');
+        $headers = $htmlDom->getElementsByTagName('h' . $i);        
 
-        if(strlen(trim($linkHref)) != 0 && $linkHref[0] != '#' && strlen(trim($linkText)) != 0) {
-            $extractedLinks[$linkText] = $linkHref;
+        foreach($headers as $header) {
+            
+            $header_id = $header->getAttribute('id');
+            $header_text = $header->nodeValue;
+
+            if(strlen($header_id) > 0 && strlen($header_text) > 0)
+                $extractedHeaders[$header_id] = $htmlDom->saveHtml($header);
         }        
     }
 
-    return $extractedLinks;
+    return $extractedHeaders;
 }
