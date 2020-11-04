@@ -55,7 +55,7 @@ if (isset($_SESSION['logged_user']))
 
                 </form>
             <?php else : ?>
-
+               
                 <?php echo "<script>window.location = '404.php'</script>"; ?>
 
             <?php endif; ?>

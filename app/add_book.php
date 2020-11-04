@@ -40,18 +40,17 @@ if (isset($_POST['add_book'])) {
                 ) ENGINE=InnoDB;";
 
     $is_added = FALSE;
-    if (mysqli_query($connect, 'select 1 from `books` LIMIT 1')) {
+    if (mysqli_query($connect, 'select 1 from `books` LIMIT 1') === FALSE)
+        mysqli_query($connect, $create_table_query);
 
-        move_uploaded_file($_FILES['cover']['tmp_name'], $cover);
-        $insert_query = "INSERT INTO `books` (`name`, `description`, `author`, `genre`, `release_date` , `cover_type` , `ISBN`, `publisher`, `language`,`size_in_pages`, `price`, `cover`)
+    move_uploaded_file($_FILES['cover']['tmp_name'], $cover);
+    $insert_query = "INSERT INTO `books` (`name`, `description`, `author`, `genre`, `release_date` , `cover_type` , `ISBN`, `publisher`, `language`,`size_in_pages`, `price`, `cover`)
                          VALUES ('$name', '$description', '$author', '$genre', '$release_date', '$cover_type', '$ISBN', '$publisher', '$language', '$size_in_pages', '$price', '$cover');
                         ";
-        if (mysqli_query($connect, $insert_query)) {
-            $is_added = TRUE;
-        }
-    } else {
-        mysqli_query($connect, $create_table_query);
+    if (mysqli_query($connect, $insert_query)) {
+        $is_added = TRUE;
     }
+
 
     mysqli_close($connect);
 }
