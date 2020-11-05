@@ -4,7 +4,7 @@ $title = "Книжный  магазин";
 include getcwd() . "/header.php";
 ?>
 
-<div class="container-fluid body-content">
+<div class="container body-content">
     <div class="row">
         <div class="col">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -52,44 +52,51 @@ include getcwd() . "/header.php";
         </div>
     </div>
     <div class="row">
-        <div class="col align-items-stretch">
+        <div class="col">
             <h1 id='newBooks'>Новинки</h1>
         </div>
-    </div>    
+    </div>
 
-    <div class='container body-content'>
-        <div class='row'>
-            <div class='row'>
 
-                <?php
-                $amountBooks = 0;
+    <div class='row'>
+        <div class='col'>
 
-                $books = mysqli_query($connect, "SELECT * FROM `books`");
+            <?php
 
-                while ($book = mysqli_fetch_assoc($books)) {
-                    $amountBooks++;
-                ?>
 
-                    <div class="col">
-                        <figure class="sign">
-                            <a href=<?php echo 'info_book.php?' . $book['id'] ?>><img src=<?php echo $book['cover'] ?> width="180px" height="256px"></a>
-                            <figcaption>
-                                <?php echo $book['author'] . '. ' . wordwrap($book['name'], 30, "<br/>", 1) ?>
-                            </figcaption>
-                        </figure>
+            $amountBooks = 0;
+            $books = mysqli_query($connect, "SELECT * FROM `books`");
+            while ($book = mysqli_fetch_assoc($books)) {
+
+                if ($amountBooks == 0)
+                    echo "<div class='card-deck'>";
+            ?>
+                <div class="card ">
+                    <a href=<?php echo 'info_book.php?' . $book['id'] ?>><img src=<?php echo $book['cover'] ?> width="180px" height="400px" class="card-img-top"></a>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $book['name']; ?></h5>
+                        <p class="card-text"><?php echo $book['author']; ?></p>
+
                     </div>
+                </div>
 
-                <?php
-                    if ($amountBooks != 0 && $amountBooks % 5 == 0) {
-                        echo "</div>";
-                        echo "<div class='row'>";
-                    }
+            <?php
+                $amountBooks++;
+                if ($amountBooks >= 3) {
+                    $amountBooks = 0;
+                    echo "</div>";
+                    echo "<br>";
                 }
-                ?>
-
-            </div>
+            }
+            if ($amountBooks < 3 && $amountBooks != 0) {
+                
+                echo "</div>";
+                echo "<br>";
+            }
+            ?>
         </div>
     </div>
+
 
     <div class="row">
         <div class="col align-items-stretch">

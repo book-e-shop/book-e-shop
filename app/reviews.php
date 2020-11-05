@@ -1,5 +1,5 @@
 <?php
-$title = "Карта сайта";
+$title = "Рецензии";
 require 'db.php';
 require 'libs/Parsedown.php';
 require 'toc_generator.php';
@@ -31,16 +31,17 @@ $text = set_id($text);
 
     <div class="row">
         <div class="col">
-            <i><?php echo $review["author"].', '.$review["publish_date"]; ?></i>
+            <i><?php echo $review["author"] . ', ' . $review["publish_date"]; ?></i>
         </div>
     </div>
 
+    <!--
     <div class="row">
         <div class="col">
-                <?php generate_toc($text) ?>
+                <?php //generate_toc($text) ?>
         </div>
     </div>
-
+-->
 
     <div class="row">
         <div id="review" class="col">

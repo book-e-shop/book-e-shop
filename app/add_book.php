@@ -1,11 +1,14 @@
 <?php
+require "db.php";
+$title = "Добавление книг";
 include getcwd() . "/header.php";
+
 ?>
 
 <?php
-
+$is_added = FALSE;
 if (isset($_POST['add_book'])) {
-    require "db.php";
+
 
     $name = $_POST['name'];
     $description = $_POST['description'];
@@ -24,22 +27,22 @@ if (isset($_POST['add_book'])) {
 
     $create_table_query = "CREATE TABLE `books` (
                 `id` INT NOT NULL AUTO_INCREMENT,
-                `name` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci,
+                `name` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `description` TEXT(500) CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `author` VARCHAR(50)  CHARACTER SET utf8 COLLATE utf8_general_ci,
-                `genre` ENUM('Detective','Любовный роман','Учебная и образовательная литература','Классическая литература','Биографии и мемуары'),
+                `genre` ENUM('Детектив','Любовный роман','Учебная и образовательная литература','Классическая литература','Биографии и мемуары'),
                 `release_date` DATE,
                 `cover_type` ENUM('Твердый переплет','Мягкий переплет'),
-                `ISBN` VARCHAR(13)  CHARACTER SET utf8 COLLATE utf8_general_ci,
+                `ISBN` VARCHAR(20)  CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `publisher` VARCHAR(50)  CHARACTER SET utf8 COLLATE utf8_general_ci,
-                `language` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci,
+                `language` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `size_in_pages` DECIMAL,
                 `price` DECIMAL,
                 `cover` VARCHAR(200)  CHARACTER SET utf8 COLLATE utf8_general_ci,
                 PRIMARY KEY (`id`)
                 ) ENGINE=InnoDB;";
 
-    $is_added = FALSE;
+
     if (mysqli_query($connect, 'select 1 from `books` LIMIT 1') === FALSE)
         mysqli_query($connect, $create_table_query);
 
@@ -65,7 +68,7 @@ if (isset($_POST['add_book'])) {
             echo "<div class='row'>
                     <div class='col'>
                         <div class='alert alert-success' role='alert'>
-                            Книга \"'.$name.'\" успешно добавлена !
+                            Книга \"'$name'\" успешно добавлена !
                         </div>
                     </div>
                   </div>";
@@ -87,7 +90,7 @@ if (isset($_POST['add_book'])) {
                     <label for="name">
                         <h4>Название книги</h4>
                     </label>
-                    <input id="name" name="name" class="form-control" type="text">
+                    <input id="name" name="name" class="form-control" maxlength="100" type="text">
                 </div>
 
 
@@ -95,14 +98,14 @@ if (isset($_POST['add_book'])) {
                     <label for="description">
                         <h4>Описание</h4>
                     </label>
-                    <textarea id="description" name="description" class="form-control"></textarea>
+                    <textarea id="description" name="description" maxlength="500" class="form-control"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="author">
                         <h4>Автор</h4>
                     </label>
-                    <input id="author" name="author" class="form-control" type="text">
+                    <input id="author" name="author" class="form-control" maxlength = "50" type="text">
                 </div>
 
 
@@ -143,7 +146,7 @@ if (isset($_POST['add_book'])) {
                     <label for="ISBN">
                         <h4>ISBN</h4>
                     </label>
-                    <input id="ISBN" name="ISBN" class="form-control" type="text">
+                    <input id="ISBN" name="ISBN" class="form-control" maxlength="20"  type="text">
                 </div>
 
 
@@ -151,7 +154,7 @@ if (isset($_POST['add_book'])) {
                     <label for="publisher">
                         <h4>Издательство</h4>
                     </label>
-                    <input id="publisher" name="publisher" class="form-control" type="text">
+                    <input id="publisher" name="publisher" class="form-control" maxlength="50" type="text">
                 </div>
 
 
@@ -159,14 +162,14 @@ if (isset($_POST['add_book'])) {
                     <label for="language">
                         <h4>Язык издания</h4>
                     </label>
-                    <input id="language" name="language" class="form-control" type="text">
+                    <input id="language" name="language" class="form-control" maxlength="50" type="text">
                 </div>
 
                 <div class="form-group">
                     <label for="size_in_pages">
                         <h4>Объем издания</h4>
                     </label>
-                    <input id="size_in_pages" name="size_in_pages" class="form-control" type="number">
+                    <input id="size_in_pages" name="size_in_pages" min="1" max = "5000" class="form-control" type="number">
                 </div>
 
                 <div class="form-group">
@@ -176,7 +179,7 @@ if (isset($_POST['add_book'])) {
                     <div class="form-group-prepend">
                         <span class="form-group-text">₽</span>
                     </div>
-                    <input id="price" name="price" class="form-control" type="number">
+                    <input id="price" name="price" class="form-control" min="0" type="number">
                 </div>
 
 

@@ -8,46 +8,59 @@ include getcwd() . "/header.php";
 
 $choosedGenre = $_SERVER['QUERY_STRING'];
 
-if($choosedGenre === 'all') {
+
+if ($choosedGenre === 'all') {
     $books = mysqli_query($connect, "SELECT * FROM `books`");
 } else {
-    $books = mysqli_query($connect, "SELECT * FROM `books` WHERE `genre` = '$choosedGenre'");
+
+
+
+    $books = mysqli_query($connect, "SELECT * FROM `books` WHERE `genre` = '" . rawurldecode($choosedGenre) . "'");
 }
 
 ?>
 
 <div class='container body-content'>
     <div class='row'>
-        <div class='row'>
+        <div class='col'>
 
             <?php
+
+
             $amountBooks = 0;
 
             while ($book = mysqli_fetch_assoc($books)) {
-                $amountBooks++;
-            ?>
 
-                <div class="col">
-                    <figure class="sign">
-                        <a href="/"><img src=<?php echo $book['cover'] ?> width="180px" height="256px"></a>
-                        <figcaption>
-                            <?php echo $book['author'] . '. ' . wordwrap($book['name'], 30, "<br/>", 1) ?>
-                        </figcaption>
-                    </figure>
+                if ($amountBooks == 0)
+                    echo "<div class='card-deck'>";
+            ?>
+                <div class="card ">
+                    <a href=<?php echo 'info_book.php?' . $book['id'] ?>><img src=<?php echo $book['cover'] ?> width="180px" height="400px" class="card-img-top"></a>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $book['name']; ?></h5>
+                        <p class="card-text"><?php echo $book['author']; ?></p>
+
+                    </div>
                 </div>
 
             <?php
-                if ($amountBooks != 0 && $amountBooks % 5 == 0) {
+                $amountBooks++;
+                if ($amountBooks == 3) {
+                    $amountBooks = 0;
                     echo "</div>";
-                    echo "<div class='row'>";
+                    echo "<br>";
                 }
             }
-            ?>
+            if ($amountBooks < 3 && $amountBooks != 0) {
 
+                echo "</div>";
+                echo "<br>";
+            }
+
+            ?>
         </div>
     </div>
 </div>
-
 
 <p></p>
 <nav aria-label="Page navigation example">

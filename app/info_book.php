@@ -29,6 +29,33 @@ $book = mysqli_fetch_assoc($book);
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+
+                        <th scope="col">Жанр</th>
+                        <th scope="col">Тип обложки</th>
+                        <th scope="col">ISBN</th>
+                        <th scope="col">Издательство</th>
+                        <th scope="col">Объем издания</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php echo $book['genre']; ?></td>
+                        <td><?php echo $book['cover_type']; ?></td>
+                        <td><?php echo $book['ISBN']; ?></td>
+                        <td><?php echo $book['publisher']; ?></td>
+                        <td><?php echo $book['size_in_pages']; ?> </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div class="row">
         <div id="content" class="col-sm">
             <h2>Рецензии</h2>
@@ -42,6 +69,7 @@ $book = mysqli_fetch_assoc($book);
     <div class="row">
         <div class="col-sm">
             <?php
+            
             $amountReviews = 0;
 
             $reviews = mysqli_query($connect, "SELECT * FROM `reviews` WHERE `book_id` = '$book_id'");
@@ -82,7 +110,7 @@ $book = mysqli_fetch_assoc($book);
                         <label for="name">
                             <h4>Название рецензии</h4>
                         </label>
-                        <input id="title" name="title" class="form-control" type="text">
+                        <input id="title" name="title" maxlength="50" class="form-control" type="text">
                     </div>
 
 
@@ -90,14 +118,14 @@ $book = mysqli_fetch_assoc($book);
                         <label for="description">
                             <h4>Рецензия</h4>
                         </label>
-                        <textarea id="review" name="review" class="form-control"></textarea>
+                        <textarea id="review" maxlength="10000" name="review" class="form-control"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="author">
                             <h4>Автор</h4>
                         </label>
-                        <input id="author" name="author" class="form-control" type="text">
+                        <input id="author" maxlength="50" name="author" class="form-control" type="text">
                     </div>
 
                     <div class="form-group">

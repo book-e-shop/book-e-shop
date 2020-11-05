@@ -13,7 +13,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/sitemap.php" >Карта сайта</a>
+                <a class="nav-link" href="/add_book.php" >Добавить книгу</a>
             </li>
 
         </ul>
