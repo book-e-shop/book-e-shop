@@ -49,7 +49,7 @@
 
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <?php echo $_SESSION['logged_user']->name . ' ' . $_SESSION['logged_user']->surname; ?>
+                        <?php echo $_SESSION['logged_user']['name'] . ' ' . $_SESSION['logged_user']['surname']; ?>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" href="/lk_main.php">Личный кабинет</a>
@@ -152,7 +152,7 @@
             <li><a href="content.php?all"> Все книги</a> </li>
 
             <?php
-            
+
             $genre_column = mysqli_query($connect, "SELECT `genre` FROM `books`");
             $genres = array();
 
@@ -160,10 +160,10 @@
 
                 if (!in_array($genre['genre'], $genres)) {
 
-                    echo "<li><a href='content.php?" . $genre['genre'] . "'>" . $genre['genre'] . "</a></li>";  
-                    
+                    echo "<li><a href='content.php?" . $genre['genre'] . "'>" . $genre['genre'] . "</a></li>";
+
                     array_push($genres, $genre['genre']);
-                }                                
+                }
             }
 
             ?>

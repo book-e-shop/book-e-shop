@@ -37,8 +37,8 @@ include getcwd() . "/header.php";
                     <div class="col-sm">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo $user->name . ' ' . $user->surname; ?></h5>
-                                <?php echo $user->email; ?>
+                                <h5 class="card-title"><?php echo $_SESSION['logged_user']['name'] . ' ' . $_SESSION['logged_user']['surname']; ?></h5>
+                                <?php echo $_SESSION['logged_user']['email']; ?>
                             </div>
                             <div class="card-footer">
                                 <a href="/lk_profile.php" class="btn btn-primary"> Редактировать </a>
@@ -89,6 +89,38 @@ include getcwd() . "/header.php";
                     <div class="col-sm">
                         <h1> Активные заказы<h1>
                                 <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <h1> Мои рецензии<h1>
+                                <hr>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <?php
+
+
+                        $amountReviews = 0;
+                        $user_id = $_SESSION['logged_user']['id'];
+                        
+                        $reviews = mysqli_query($connect, "SELECT * FROM `reviews` WHERE `user_id` = '$user_id'");
+                         
+                        echo "<ul class='list-group'>";
+                        while ($review = mysqli_fetch_assoc($reviews)) {
+
+                            $amountReviews++;
+                            $a = "<a href=reviews.php?" . $review['id'] . ">
+                            <h3>" . $review["title"] . "</h3>
+                            </a>";
+                            echo "<li class=\"list-group-item\">" . $a . "</li>";
+                        }
+                        echo "</ul>";
+
+                        ?>
                     </div>
                 </div>
             </div>

@@ -26,7 +26,7 @@ if (isset($_POST['add_book'])) {
     $cover = 'www/media/' . uniqid() . '.' . pathinfo($cover["name"])['extension'];
 
     $create_table_query = "CREATE TABLE `books` (
-                `id` INT NOT NULL AUTO_INCREMENT,
+                `id` INT UNSIGNED NOT NULL  AUTO_INCREMENT,
                 `name` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `description` TEXT(500) CHARACTER SET utf8 COLLATE utf8_general_ci,
                 `author` VARCHAR(50)  CHARACTER SET utf8 COLLATE utf8_general_ci,

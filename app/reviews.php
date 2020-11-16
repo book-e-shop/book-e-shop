@@ -35,13 +35,14 @@ $text = set_id($text);
         </div>
     </div>
 
-    <!--
+
     <div class="row">
         <div class="col">
-                <?php //generate_toc($text) ?>
+            <?php generate_toc($text)
+            ?>
         </div>
     </div>
--->
+
 
     <div class="row">
         <div id="review" class="col">

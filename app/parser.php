@@ -9,18 +9,19 @@ function extractHeaders($htmlContent)
 
     $extractedHeaders = array();
 
-    for ($i = 1; $i < 7; $i++) {
+    $elements = $htmlDom->getElementsByTagName('*');
 
-        $headers = $htmlDom->getElementsByTagName('h' . $i);        
+    $h_array = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6');
 
-        foreach($headers as $header) {
-            
-            $header_id = $header->getAttribute('id');
-            $header_text = $header->nodeValue;
+    foreach ($elements as $element) {
+        if (in_array($element->tagName, $h_array)) {
 
-            if(strlen($header_id) > 0 && strlen($header_text) > 0)
-                $extractedHeaders[$header_id] = $htmlDom->saveHtml($header);
-        }        
+            $header_id = $element->getAttribute('id');
+            $header_text = $element->nodeValue;
+
+            if (strlen($header_id) > 0 && strlen($header_text) > 0)
+                $extractedHeaders[$header_id] = $htmlDom->saveHtml($element);
+        }
     }
 
     return $extractedHeaders;

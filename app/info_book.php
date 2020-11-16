@@ -62,27 +62,32 @@ $book = mysqli_fetch_assoc($book);
         </div>
 
         <div id="content" class="col-sm">
-            <button class="btn btn-primary" data-toggle="modal" data-target="#addReview">Добавить рецензию</button>
+            <button class="btn btn-primary" data-toggle="modal" <?php if (isset($_SESSION['logged_user'])) echo "data-target=\"#addReview\"";
+                                                                else echo "data-target=\"#modalLoginForm\"";
+                                                                ?>>Добавить рецензию</button>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm">
             <?php
+           
             
-            $amountReviews = 0;
+                $amountReviews = 0;
 
-            $reviews = mysqli_query($connect, "SELECT * FROM `reviews` WHERE `book_id` = '$book_id'");
+                $reviews = mysqli_query($connect, "SELECT * FROM `reviews` WHERE `book_id` = '$book_id'");
 
-            echo "<ul class='list-group'>";
-            while ($review = mysqli_fetch_assoc($reviews)) {
-                $amountReviews++;
-                $a = "<a href=reviews.php?" . $review['id'] . ">
+                echo "<ul class='list-group'>";
+                while ($review = mysqli_fetch_assoc($reviews)) {
+                   
+                    $amountReviews++;
+                    $a = "<a href=reviews.php?" . $review['id'] . ">
         <h3>" . $review["title"] . "</h3>
         </a>";
-                echo "<li class=\"list-group-item\">" . $a . "</li>";
-            }
-            echo "</ul>";
+                    echo "<li class=\"list-group-item\">" . $a . "</li>";
+                }
+                echo "</ul>";
+            
             ?>
         </div>
     </div>
@@ -125,8 +130,13 @@ $book = mysqli_fetch_assoc($book);
                         <label for="author">
                             <h4>Автор</h4>
                         </label>
-                        <input id="author" maxlength="50" name="author" class="form-control" type="text">
+                        <input id="author" maxlength="50" name="author" class="form-control" readonly value=<?php echo $_SESSION['logged_user']['name'] . "&nbsp" . $_SESSION['logged_user']['surname']; ?> type="text">
                     </div>
+
+                    <div class="form-group">
+                        <input id="user_id" maxlength="50" name="user_id" class="form-control" hidden value=<?php echo $_SESSION['logged_user']['id']; ?> type="text">
+                    </div>
+
 
                     <div class="form-group">
                         <button type="submit" name='add_book' class="btn btn-primary" data-toggle="button">Добавить</button>

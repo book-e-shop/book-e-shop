@@ -5,6 +5,7 @@ include getcwd() . "/header.php";
 ?>
 
 <div class="container body-content">
+   
     <div class="row">
         <div class="col">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -89,7 +90,7 @@ include getcwd() . "/header.php";
                 }
             }
             if ($amountBooks < 3 && $amountBooks != 0) {
-                
+
                 echo "</div>";
                 echo "<br>";
             }

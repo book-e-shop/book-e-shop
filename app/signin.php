@@ -1,6 +1,7 @@
 <?php
 
 require "db.php";
+@session_start();
 
 $login = $_POST['login'];
 
@@ -15,13 +16,13 @@ if (isset($_POST['do_login'])) {
         $user = mysqli_fetch_assoc($check_user);
 
         echo $_POST['password'];
-        echo json_encode($user);
+
 
         if (password_verify($_POST['password'], $user['password'])) {
 
-            echo "a1";
-            $_SESSION['logged_user'] = $user;
 
+            $_SESSION['logged_user'] = $user;
+            
             header('Location: index.php');
         }
     } else {
