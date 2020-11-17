@@ -5,7 +5,7 @@ include getcwd() . "/header.php";
 ?>
 
 <div class="container body-content">
-   
+
     <div class="row">
         <div class="col">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -77,8 +77,23 @@ include getcwd() . "/header.php";
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $book['name']; ?></h5>
                         <p class="card-text"><?php echo $book['author']; ?></p>
-
                     </div>
+
+                    <?php if (isset($_SESSION['logged_user'])) : ?>
+                        <?php if ($_SESSION['logged_user']['login'] === 'admin') :  ?>
+                            <div class='container'>
+                                <div class='row'>
+                                    <div class='col'>
+                                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top">Редактировать <i class="fa fa-edit"></i></button>
+                                    </div>
+                                    <div class='col'>
+                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top">Удалить <i class="fa fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
                 </div>
 
             <?php
