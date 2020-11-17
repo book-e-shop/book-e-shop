@@ -62,14 +62,25 @@ $text = set_id($text);
         </div>
 
         <div class='col'>
-            <button class='btn btn-danger' data-toggle='modal' data-target='updateReview'>Удалить рецензию</button>
+            <form method='post' action='delete_review.php' enctype='multipart/form-data'>
+                <div class='form-group' hidden>
+                    <input id='review_id' name='review_id' value='" . $review['id'] . "'class='form-control' type='text'>
+                </div>
+                <div class='form-group' hidden>
+                    <input id='review_id' name='book_id' value='" . $review['book_id'] . "'class='form-control' type='text'>
+                </div>
+                <div class='form-group'>
+                    <button type='submit' name='delete_review' class='btn btn-primary' data-toggle='button'>Удалить рецензию</button>
+                </div>
+            </form>
         </div>
     </div>";
         } ?>
 </div>
 
 
-<div class="modal fade" id="updateReview"   aria-hidden="true">
+
+<div class="modal fade" id="updateReview" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -79,10 +90,12 @@ $text = set_id($text);
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="add_review.php" enctype="multipart/form-data">
-
+                <form method="post" action="update_review.php" enctype="multipart/form-data">
+                    <div class='form-group' hidden>
+                    <input id="review_id" name="review_id" value="<?php echo $review['id'] ?>" class="form-control" type="text">
+                    </div>
                     <div class="form-group" hidden>
-                        <input id="book_id" name="book_id" value="<?php echo $book['id'] ?>" class="form-control" type="text">
+                        <input id="book_id" name="book_id" value="<?php echo $review['book_id'] ?>" class="form-control" type="text">
                     </div>
                     <div class="form-group">
                         <label for="name">
@@ -96,7 +109,7 @@ $text = set_id($text);
                         <label for="description">
                             <h4>Рецензия</h4>
                         </label>
-                        <textarea id="review" maxlength="10000" name="review"   class="form-control"><?php echo $review['review']; ?></textarea>
+                        <textarea id="review" maxlength="10000" name="review" class="form-control"><?php echo $review['review']; ?></textarea>
                     </div>
 
                     <div class="form-group">
@@ -112,7 +125,7 @@ $text = set_id($text);
 
 
                     <div class="form-group">
-                        <button type="submit" name='add_book' class="btn btn-primary" data-toggle="button">Добавить</button>
+                        <button type="submit" name='update_review' class="btn btn-primary" data-toggle="button">Добавить</button>
                     </div>
 
                 </form>
