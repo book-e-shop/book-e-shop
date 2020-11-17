@@ -1,75 +1,4 @@
-<?php
-$title = "Рецензии";
-require 'db.php';
-require 'libs/Parsedown.php';
-require 'toc_generator.php';
-include getcwd() . "/header.php";
-@session_start();
-?>
-
-
-<?php
-$review_id = $_SERVER['QUERY_STRING'];
-$review = mysqli_query($connect, "SELECT * FROM `reviews` WHERE `id` = '$review_id'");
-$review = mysqli_fetch_assoc($review);
-mysqli_close($connect);
-$Parsedown = new Parsedown();
-$text =  $Parsedown->text($review["review"]);
-
-
-$text = set_id($text);
-?>
-
-
-<div class="container body-content">
-    <div class="row">
-        <div class="col">
-            <h1>
-                <?php echo $review["title"]; ?>
-            </h1>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <i><?php echo $review["author"] . ', ' . $review["publish_date"]; ?></i>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col">
-            <?php generate_toc($text)
-            ?>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div id="review" class="col">
-            <?php
-            echo $text;
-            ?>
-        </div>
-    </div>
-
-    <?php
-    if (isset($_SESSION['logged_user']))
-        if ($_SESSION['logged_user']['id'] === $review['user_id']) {
-            echo "<div class='row'>
-        <div class='col'>
-        <button class='btn btn-primary' data-toggle='modal' data-target='#updateReview'>Изменить рецензию</button>
-        </div>
-
-        <div class='col'>
-            <button class='btn btn-danger' data-toggle='modal' data-target='updateReview'>Удалить рецензию</button>
-        </div>
-    </div>";
-        } ?>
-</div>
-
-
-<div class="modal fade" id="updateReview"   aria-hidden="true">
+<div class="modal fade" id="addReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -88,7 +17,7 @@ $text = set_id($text);
                         <label for="name">
                             <h4>Название рецензии</h4>
                         </label>
-                        <input id="title" name="title" maxlength="50" value=<?php echo $review['title']; ?> class="form-control" type="text">
+                        <input id="title" name="title" maxlength="50" class="form-control" type="text">
                     </div>
 
 
@@ -96,7 +25,7 @@ $text = set_id($text);
                         <label for="description">
                             <h4>Рецензия</h4>
                         </label>
-                        <textarea id="review" maxlength="10000" name="review"   class="form-control"><?php echo $review['review']; ?></textarea>
+                        <textarea id="review" maxlength="10000" name="review" class="form-control"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -124,7 +53,3 @@ $text = set_id($text);
         </div>
     </div>
 </div>
-
-<?php
-include getcwd() . "/footer.php";
-?>
