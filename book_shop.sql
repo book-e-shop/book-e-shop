@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 05 2020 г., 18:38
+-- Время создания: Ноя 17 2020 г., 16:32
 -- Версия сервера: 10.4.14-MariaDB
 -- Версия PHP: 7.4.11
 
@@ -26,6 +26,8 @@ SET time_zone = "+00:00";
 --
 -- Структура таблицы `addresses`
 --
+
+CREATE DATABASE book_shop;
 
 CREATE TABLE `addresses` (
   `id` int(11) UNSIGNED NOT NULL,
@@ -53,7 +55,7 @@ INSERT INTO `addresses` (`id`, `zip_code`, `region`, `district`, `city`, `street
 --
 
 CREATE TABLE `books` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `author` varchar(50) DEFAULT NULL,
@@ -87,8 +89,9 @@ INSERT INTO `books` (`id`, `name`, `description`, `author`, `genre`, `release_da
 --
 
 CREATE TABLE `reviews` (
-  `id` int(11) NOT NULL,
-  `book_id` int(11) DEFAULT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `book_id` int(10) UNSIGNED DEFAULT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `title` varchar(50) DEFAULT NULL,
   `review` text DEFAULT NULL,
   `author` varchar(50) DEFAULT NULL,
@@ -99,8 +102,13 @@ CREATE TABLE `reviews` (
 -- Дамп данных таблицы `reviews`
 --
 
-INSERT INTO `reviews` (`id`, `book_id`, `title`, `review`, `author`, `publish_date`) VALUES
-(23, 20, 'Рецензия на книгу \"Тарас Бульба\"', '## Описание персонажей\r\n123456\r\n## Выводы\r\nОтличная книга !', 'Денис', '2020-11-05');
+INSERT INTO `reviews` (`id`, `book_id`, `user_id`, `title`, `review`, `author`, `publish_date`) VALUES
+(1, 1, 2, 'qfq', 'fqfq', 'Денис Медведев', '2020-11-16'),
+(3, 1, 2, 'dw', 'dw', 'Денис Медведев', '2020-11-16'),
+(4, 1, 2, '1', '1', 'Денис Медведев', '2020-11-16'),
+(5, 6, 2, 'vvr', 'brb', 'Денис Медведев', '2020-11-16'),
+(6, 6, 2, '111', '111', 'Денис Медведев', '2020-11-16'),
+(7, 4, 2, 'Рецензия', '# Описание\r\n## 1\r\n\r\n# 124', 'Денис Медведев', '2020-11-17');
 
 -- --------------------------------------------------------
 
@@ -122,7 +130,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `email`, `name`, `surname`, `password`) VALUES
-(1, 'medvedev', 'test@test.test', 'Денис', 'Медведев', '$2y$10$VhQy4k9LxYv21ayhJ5roru.MY55.cFJs/JrYUodzekgfJ1BZIawRC');
+(1, 'medvedev', 'test@test.test', 'Денис', 'Медведев', '$2y$10$VhQy4k9LxYv21ayhJ5roru.MY55.cFJs/JrYUodzekgfJ1BZIawRC'),
+(2, 'login', 'tea@tea.com', 'Денис', 'Медведев', '$2y$10$72pf63RjFA4HwUFU0PpEqObIfol5MTEsJMovprcJpQ2/V6uq4KI/G');
 
 --
 -- Индексы сохранённых таблиц
@@ -146,7 +155,8 @@ ALTER TABLE `books`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `book_id` (`book_id`);
+  ADD KEY `book_id` (`book_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Индексы таблицы `users`
@@ -168,19 +178,19 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT для таблицы `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT для таблицы `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -196,7 +206,8 @@ ALTER TABLE `addresses`
 -- Ограничения внешнего ключа таблицы `reviews`
 --
 ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
