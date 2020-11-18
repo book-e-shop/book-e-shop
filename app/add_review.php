@@ -11,8 +11,8 @@ $create_table_query = "CREATE TABLE  `reviews` (
     `author` VARCHAR(50)  CHARACTER SET utf8 COLLATE utf8_general_ci,
     `publish_date` DATE,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`book_id`)  REFERENCES `books` (`id`),
-    FOREIGN KEY (`user_id`)  REFERENCES `users` (`id`)
+    FOREIGN KEY (`book_id`)  REFERENCES `books` (`id`) ON DELETE CASCADE,
+    FOREIGN KEY (`user_id`)  REFERENCES `users` (`id`) ON DELETE CASCADE
     ) ENGINE=InnoDB;";
 
 echo mysqli_error($connect);
