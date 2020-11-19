@@ -7,7 +7,7 @@ $review = mysqli_real_escape_string($connect, $_POST['review']);
 
 
 
-$update_query = "UPDATE `reviews` SET `title` = '%$title%', `review` = '%$review%', `publish_date` = CURDATE() WHERE `reviews`.`id` =  $review_id ;";
+$update_query = "UPDATE `reviews` SET `title` = '$title', `review` = '$review', `publish_date` = CURDATE() WHERE `reviews`.`id` =  $review_id ;";
 
 if (mysqli_query($connect, $update_query)) {
     echo "Обзор успешно удален";
