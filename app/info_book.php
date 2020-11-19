@@ -71,15 +71,15 @@ $book = mysqli_fetch_assoc($book);
     <div class="row">
         <div class="col-sm">
             <?php
-           
-            
+
+            if (mysqli_query($connect, 'select 1 from `reviews` LIMIT 1') !== FALSE) {
                 $amountReviews = 0;
 
                 $reviews = mysqli_query($connect, "SELECT * FROM `reviews` WHERE `book_id` = '$book_id'");
 
                 echo "<ul class='list-group'>";
                 while ($review = mysqli_fetch_assoc($reviews)) {
-                   
+
                     $amountReviews++;
                     $a = "<a href=reviews.php?" . $review['id'] . ">
         <h3>" . $review["title"] . "</h3>
@@ -87,7 +87,7 @@ $book = mysqli_fetch_assoc($book);
                     echo "<li class=\"list-group-item\">" . $a . "</li>";
                 }
                 echo "</ul>";
-            
+            }
             ?>
         </div>
     </div>
