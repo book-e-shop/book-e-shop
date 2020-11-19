@@ -49,7 +49,7 @@ include getcwd() . "/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Основной сбособ оплаты</h5>
-                                This is some text within a card body.
+
                             </div>
                             <div class="card-footer">
                                 <button class="btn btn-primary" disabled> Редактировать </button>
@@ -60,25 +60,11 @@ include getcwd() . "/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Основной адрес доставки</h5>
-                                <?php
 
-                                $addresses = R::getAll(
-                                    'select * from addresses where users_id= :user_id and is_main_address =:is_main_address',
-                                    array(':user_id' => $user->id, ':is_main_address' => 1)
-                                );
-                                $address = array_shift($addresses);
-
-                                if ($address != null) {
-                                    $str = $address['zip_code'] . ' ' . $address['region'] . ' ' . $address['district'] . ' ' . $address['city'];
-                                    echo  $str;
-                                } else {
-                                    echo 'Адрес отсутсвует';
-                                }
-
-                                ?>
+                                Адрес отсутсвует
                             </div>
                             <div class="card-footer">
-                                <a href="/lk_addresses.php" class="btn btn-primary"> Редактировать </a>
+                                <button class="btn btn-primary" disabled> Редактировать </button>
                             </div>
                         </div>
                     </div>
@@ -106,9 +92,9 @@ include getcwd() . "/header.php";
 
                         $amountReviews = 0;
                         $user_id = $_SESSION['logged_user']['id'];
-                        
+
                         $reviews = mysqli_query($connect, "SELECT * FROM `reviews` WHERE `user_id` = '$user_id'");
-                         
+
                         echo "<ul class='list-group'>";
                         while ($review = mysqli_fetch_assoc($reviews)) {
 
