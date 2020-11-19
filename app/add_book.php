@@ -3,9 +3,6 @@ require "db.php";
 $title = "Добавление книг";
 include getcwd() . "/header.php";
 
-?>
-
-<?php
 $is_added = FALSE;
 if (isset($_POST['add_book'])) {
 
@@ -48,12 +45,11 @@ if (isset($_POST['add_book'])) {
 
     move_uploaded_file($_FILES['cover']['tmp_name'], $cover);
     $insert_query = "INSERT INTO `books` (`name`, `description`, `author`, `genre`, `release_date` , `cover_type` , `ISBN`, `publisher`, `language`,`size_in_pages`, `price`, `cover`)
-                         VALUES ('$name', '$description', '$author', '$genre', '$release_date', '$cover_type', '$ISBN', '$publisher', '$language', '$size_in_pages', '$price', '$cover');
-                        ";
+                             VALUES ('$name', '$description', '$author', '$genre', '$release_date', '$cover_type', '$ISBN', '$publisher', '$language', '$size_in_pages', '$price', '$cover');
+                            ";
     if (mysqli_query($connect, $insert_query)) {
         $is_added = TRUE;
     }
-
 
     mysqli_close($connect);
 }
@@ -68,7 +64,7 @@ if (isset($_POST['add_book'])) {
             echo "<div class='row'>
                     <div class='col'>
                         <div class='alert alert-success' role='alert'>
-                            Книга \"'$name'\" успешно добавлена !
+                            Книга \"'$name'\" успешно добавлена!
                         </div>
                     </div>
                   </div>";
@@ -105,7 +101,7 @@ if (isset($_POST['add_book'])) {
                     <label for="author">
                         <h4>Автор</h4>
                     </label>
-                    <input id="author" name="author" class="form-control" maxlength = "50" type="text">
+                    <input id="author" name="author" class="form-control" maxlength="50" type="text">
                 </div>
 
 
@@ -146,7 +142,7 @@ if (isset($_POST['add_book'])) {
                     <label for="ISBN">
                         <h4>ISBN</h4>
                     </label>
-                    <input id="ISBN" name="ISBN" class="form-control" maxlength="20"  type="text">
+                    <input id="ISBN" name="ISBN" class="form-control" maxlength="20" type="text">
                 </div>
 
 
@@ -169,7 +165,7 @@ if (isset($_POST['add_book'])) {
                     <label for="size_in_pages">
                         <h4>Объем издания</h4>
                     </label>
-                    <input id="size_in_pages" name="size_in_pages" min="1" max = "5000" class="form-control" type="number">
+                    <input id="size_in_pages" name="size_in_pages" min="1" max="5000" class="form-control" type="number">
                 </div>
 
                 <div class="form-group">

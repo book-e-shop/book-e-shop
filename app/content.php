@@ -46,10 +46,14 @@ if ($choosedGenre === 'all') {
                             <div class='container'>
                                 <div class='row'>
                                     <div class='col'>
-                                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top">Редактировать <i class="fa fa-edit"></i></button>
+                                        <form action=<?php echo 'update_book.php?' . $book['id'] ?> method='post'>
+                                            <button class="btn btn-success btn-sm rounded-0" name='edit' type="submit" data-toggle="tooltip" data-placement="top">Редактировать <i class="fa fa-edit"></i></button>
+                                        </form>
                                     </div>
                                     <div class='col'>
-                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top">Удалить <i class="fa fa-trash"></i></button>
+                                        <form action=<?php echo 'delete_book.php?' . $book['id'] ?> method='post'>
+                                            <button class="btn btn-danger btn-sm rounded-0" name='delete' type="submit" data-toggle="tooltip" data-placement="top">Удалить <i class="fa fa-trash"></i></button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
