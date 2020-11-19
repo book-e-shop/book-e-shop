@@ -14,13 +14,20 @@ function extractHeaders($htmlContent)
     $h_array = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6');
 
     foreach ($elements as $element) {
+        echo $element->tagName . '<br>';
+
+
         if (in_array($element->tagName, $h_array)) {
+            foreach ($element->childNodes as $childElement)
 
-            $header_id = $element->getAttribute('id');
-            $header_text = $element->nodeValue;
+                if ($childElement->nodeName == 'a') {
 
-            if (strlen($header_id) > 0 && strlen($header_text) > 0)
-                $extractedHeaders[$header_id] = $htmlDom->saveHtml($element);
+                    $header_id = $childElement->getAttribute('id');
+                    $header_text = $element->nodeValue;
+
+                    if (strlen($header_id) > 0 && strlen($header_text) > 0)
+                        $extractedHeaders[$header_id] = $htmlDom->saveHtml($element);
+                }
         }
     }
 

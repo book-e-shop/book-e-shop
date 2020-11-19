@@ -1,7 +1,7 @@
 <?php
 require "db.php";
 
- 
+
 $create_table_query = "CREATE TABLE  `reviews` (
     `id` INT UNSIGNED NOT NULL   AUTO_INCREMENT,
     `book_id` INT UNSIGNED,
@@ -20,14 +20,14 @@ $is_added = FALSE;
 if (mysqli_query($connect, 'select 1 from `reviews` LIMIT 1') === FALSE)
     mysqli_query($connect, $create_table_query);
 
- 
+
 echo mysqli_error($connect);
- 
-$book_id = $_POST['book_id'];
-$title = $_POST['title'];
-$review = $_POST['review'];
-$author = $_POST['author'];
-$user_id = $_POST['user_id'];
+
+$book_id = mysqli_real_escape_string($connect, $_POST['book_id']);
+$title = mysqli_real_escape_string($connect, $_POST['title']);
+$review = mysqli_real_escape_string($connect, $_POST['review']);
+$author = mysqli_real_escape_string($connect, $_POST['author']);
+$user_id = mysqli_real_escape_string($connect, $_POST['user_id']);
 
 $insert_query = "INSERT INTO `reviews` (`title`, `review`, `author`, `publish_date`, `book_id`, `user_id`)
                          VALUES ('$title', '$review', '$author', CURDATE() , '$book_id','$user_id');

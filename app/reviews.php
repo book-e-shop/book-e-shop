@@ -17,7 +17,7 @@ $Parsedown = new Parsedown();
 $text =  $Parsedown->text($review["review"]);
 
 
-$text = set_id($text);
+#$text = set_id($text);
 ?>
 
 
@@ -39,8 +39,7 @@ $text = set_id($text);
 
     <div class="row">
         <div class="col">
-            <?php generate_toc($text)
-            ?>
+            
         </div>
     </div>
 
@@ -125,7 +124,7 @@ $text = set_id($text);
 
 
                     <div class="form-group">
-                        <button type="submit" name='update_review' class="btn btn-primary" data-toggle="button">Добавить</button>
+                        <button type="submit" name='update_review' class="btn btn-primary" data-toggle="button">Обновить</button>
                     </div>
 
                 </form>

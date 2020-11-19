@@ -17,8 +17,9 @@ function set_id($text)
         $headers = $htmlDom->getElementsByTagName('h' . $i);
         $j = 0;
         foreach ($headers as $header) {
-
-            $header->setAttribute('id', 'h' . $i . '_' . $j);
+            $a = $htmlDom->createElement("a");
+            $a->setAttribute('id', 'h' . $i . '_' . $j);
+            $header->nodeValue->insertBefore($a);
             $j++;
         }
     }
@@ -31,6 +32,7 @@ function generate_toc($html)
 {
 
     $links =  extractHeaders($html);
+    echo json_encode($links);
     echo "<h1>Содержание</h1>";
     echo "<ul class='list-group'>";
     foreach ($links as $id => $value) {

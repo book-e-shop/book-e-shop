@@ -1,17 +1,20 @@
 <?php
 require "db.php";
 
-$review_id = $_POST['review_id'];
-$title = $_POST['title'];
-$review = $_POST['review'];
+$review_id = mysqli_real_escape_string($connect, $_POST['review_id']);
+$title = mysqli_real_escape_string($connect, $_POST['title']);
+$review = mysqli_real_escape_string($connect, $_POST['review']);
 
-$update_query = "UPDATE `reviews` SET `title` = '$title', `review` = '$review', `publish_date` = CURDATE() WHERE `reviews`.`id` = $review_id;";
+
+
+$update_query = "UPDATE `reviews` SET `title` = '%$title%', `review` = '%$review%', `publish_date` = CURDATE() WHERE `reviews`.`id` =  $review_id ;";
 
 if (mysqli_query($connect, $update_query)) {
     echo "Обзор успешно удален";
+} else {
+    echo mysqli_error($connect);
 }
-echo mysqli_error($connect);
 
 mysqli_close($connect);
-
 echo "<script>window.location = 'http://localhost/reviews.php?" . $review_id . "'</script>";
+

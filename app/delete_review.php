@@ -7,9 +7,9 @@ $delete_query = "DELETE FROM `reviews` WHERE `reviews`.`id` = $review_id";
 
 if (mysqli_query($connect, $delete_query)) {
     echo "Обзор успешно удален";
+} else {
+    echo mysqli_error($connect);
 }
-echo mysqli_error($connect);
-
 mysqli_close($connect);
 
 echo "<script>window.location = 'http://localhost/info_book.php?" . $book_id . "'</script>";
