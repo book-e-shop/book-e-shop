@@ -7,6 +7,7 @@ include getcwd() . "/header.php";
 if (isset($_POST['save'])) {
 
     $book_id = $_SERVER['QUERY_STRING'];
+    settype($book_id, 'integer');
     $book = mysqli_query($connect, "SELECT * FROM `books` WHERE `id` = '$book_id'");
     $book = mysqli_fetch_assoc($book);
 
@@ -45,6 +46,7 @@ if (isset($_POST['save'])) {
     echo mysqli_error($connect);
 } else {
     $book_id = $_SERVER['QUERY_STRING'];
+    settype($book_id, 'integer');
     $book = mysqli_query($connect, "SELECT * FROM `books` WHERE `id` = '$book_id'");
     $book = mysqli_fetch_assoc($book);
 

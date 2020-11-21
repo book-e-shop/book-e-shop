@@ -6,33 +6,26 @@ include getcwd() . "/header.php";
 
 <?php
 
-$choosedGenre = $_SERVER['QUERY_STRING'];
+$choosedGenre = mysqli_real_escape_string($connect, $_SERVER['QUERY_STRING']);
 
 
 if ($choosedGenre === 'all') {
     $books = mysqli_query($connect, "SELECT * FROM `books`");
 } else {
-
-
-
     $books = mysqli_query($connect, "SELECT * FROM `books` WHERE `genre` = '" . rawurldecode($choosedGenre) . "'");
 }
 
 ?>
 
 <div class='container body-content'>
-    <div class='row'>
-        <div class='col'>
+    <div class='row justify-content-center'>
+        <div class='col-3'>
 
             <?php
-
-
             $amountBooks = 0;
 
             while ($book = mysqli_fetch_assoc($books)) {
 
-                if ($amountBooks == 0)
-                    echo "<div class='card-deck'>";
             ?>
                 <div class="card ">
                     <a href=<?php echo 'info_book.php?' . $book['id'] ?>><img src=<?php echo $book['cover'] ?> width="180px" height="400px" class="card-img-top"></a>
@@ -63,17 +56,23 @@ if ($choosedGenre === 'all') {
                 </div>
 
             <?php
+                
                 $amountBooks++;
-                if ($amountBooks == 3) {
-                    $amountBooks = 0;
+
+                if ($amountBooks % 3 === 0 && $amountBooks != 0) {
+                    echo "</div>";
                     echo "</div>";
                     echo "<br>";
-                }
-            }
-            if ($amountBooks < 3 && $amountBooks != 0) {
 
-                echo "</div>";
-                echo "<br>";
+                    echo "<div class='row justify-content-center'>";
+
+                    echo "<div class='col-3'>";
+                } else if($amountBooks != $books->num_rows) {
+                    echo "</div>";
+                    echo "<div class='col-3'>";
+                } else {
+                    echo "</div>";
+                }
             }
 
             ?>

@@ -6,6 +6,7 @@ include getcwd() . "/header.php";
 
 <?php
 $book_id = $_SERVER['QUERY_STRING'];
+settype($book_id, 'integer');
 $book = mysqli_query($connect, "SELECT * FROM `books` WHERE `id` = '$book_id'");
 $book = mysqli_fetch_assoc($book);
 ?>
