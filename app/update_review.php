@@ -1,7 +1,7 @@
 <?php
 require "db.php";
 
-$review_id = mysqli_real_escape_string($connect, $_POST['review_id']);
+$review_id = settype(mysqli_real_escape_string($connect, $_POST['review_id']), 'integer');
 $title = mysqli_real_escape_string($connect, $_POST['title']);
 $review = mysqli_real_escape_string($connect, $_POST['review']);
 
@@ -17,4 +17,3 @@ if (mysqli_query($connect, $update_query)) {
 
 mysqli_close($connect);
 echo "<script>window.location = 'http://localhost/reviews.php?" . $review_id . "'</script>";
-

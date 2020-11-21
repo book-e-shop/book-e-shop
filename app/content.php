@@ -6,7 +6,7 @@ include getcwd() . "/header.php";
 
 <?php
 
-$choosedGenre = $_SERVER['QUERY_STRING'];
+$choosedGenre = mysqli_real_escape_string($connect, $_SERVER['QUERY_STRING']);
 
 
 if ($choosedGenre === 'all') {
