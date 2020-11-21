@@ -59,71 +59,64 @@ include getcwd() . "/header.php";
     </div>
 
 
-    <div class='container'>
-        <div class='row justify-content-center'>
-            <div class='col-3'>
+    <div class='row'>
+        <div class='col'>
 
-                <?php
+            <?php
 
 
-                $amountBooks = 0;
-                $books = mysqli_query($connect, "SELECT * FROM `books`");
+            $amountBooks = 0;
+            $books = mysqli_query($connect, "SELECT * FROM `books`");
+            while ($book = mysqli_fetch_assoc($books)) {
 
-                while ($book = mysqli_fetch_assoc($books)) {
-                ?>
-                    <div class="card ">
-                        <a href=<?php echo 'info_book.php?' . $book['id'] ?>><img src=<?php echo $book['cover'] ?> width="180px" height="400px" class="card-img-top"></a>
-                        <div class="card-body">
-                            <h5 class="card-title"><?php echo $book['name']; ?></h5>
-                            <p class="card-text"><?php echo $book['author']; ?></p>
-                        </div>
-
-                        <?php if (isset($_SESSION['logged_user'])) : ?>
-                            <?php if ($_SESSION['logged_user']['login'] === 'admin') :  ?>
-                                <div class='container'>
-                                    <div class='row'>
-                                        <div class='col'>
-                                            <form action=<?php echo 'update_book.php?' . $book['id'] ?> method='post'>
-                                                <button class="btn btn-success btn-sm rounded-0" name='edit' type="submit" data-toggle="tooltip" data-placement="top">Редактировать <i class="fa fa-edit"></i></button>
-                                            </form>
-                                        </div>
-                                        <div class='col'>
-                                            <form action=<?php echo 'delete_book.php?' . $book['id'] ?> method='post'>
-                                                <button class="btn btn-danger btn-sm rounded-0" name='delete' type="submit" data-toggle="tooltip" data-placement="top">Удалить <i class="fa fa-trash"></i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            <?php endif; ?>
-                        <?php endif; ?>
-
+                if ($amountBooks == 0)
+                    echo "<div class='card-deck'>";
+            ?>
+                <div class="card ">
+                    <a href=<?php echo 'info_book.php?' . $book['id'] ?>><img src=<?php echo $book['cover'] ?> width="180px" height="400px" class="card-img-top"></a>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $book['name']; ?></h5>
+                        <p class="card-text"><?php echo $book['author']; ?></p>
                     </div>
 
-                <?php
+                    <?php if (isset($_SESSION['logged_user'])) : ?>
+                        <?php if ($_SESSION['logged_user']['login'] === 'admin') :  ?>
+                            <div class='container'>
+                                <div class='row'>
+                                    <div class='col'>
+                                        <form action=<?php echo 'update_book.php?' . $book['id'] ?> method='post'>
+                                            <button class="btn btn-success btn-sm rounded-0" name='edit' type="submit" data-toggle="tooltip" data-placement="top">Редактировать <i class="fa fa-edit"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class='col'>
+                                        <form action=<?php echo 'delete_book.php?' . $book['id'] ?> method='post'>
+                                            <button class="btn btn-danger btn-sm rounded-0" name='delete' type="submit" data-toggle="tooltip" data-placement="top">Удалить <i class="fa fa-trash"></i></button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
 
-                    $amountBooks++;
+                        <?php endif; ?>
+                    <?php endif; ?>
 
-                    if ($amountBooks % 3 === 0 && $amountBooks != 0) {
-                        echo "</div>";
-                        echo "</div>";
-                        echo "<br>";
+                </div>
 
-                        echo "<div class='row justify-content-center'>";
-
-                        echo "<div class='col-3'>";
-                    } else if($amountBooks != $books->num_rows) {
-                        echo "</div>";
-                        echo "<div class='col-3'>";
-                    } else {
-                        echo "</div>";
-                    }
+            <?php
+                $amountBooks++;
+                if ($amountBooks >= 3) {
+                    $amountBooks = 0;
+                    echo "</div>";
+                    echo "<br>";
                 }
-                ?>
-            </div>
+            }
+            if ($amountBooks < 3 && $amountBooks != 0) {
+
+                echo "</div>";
+                echo "<br>";
+            }
+            ?>
         </div>
     </div>
-
 
 
     <div class="row">
