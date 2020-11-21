@@ -25,6 +25,7 @@ if (isset($_POST['save'])) {
     $cover = $_FILES['cover'];
 
     if ($cover['name']) {
+        unlink($book['cover']);
         $cover_name = 'www/media/' . uniqid() . '.' . pathinfo($cover["name"])['extension'];
         move_uploaded_file($cover['tmp_name'], $cover_name);
 
