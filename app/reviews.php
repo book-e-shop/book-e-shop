@@ -38,7 +38,7 @@ $text = set_id($text);
 
 
     <div class="row">
-        <div class="col toc">
+        <div class="col">
             <?php generate_toc($text)
             ?>
         </div>
