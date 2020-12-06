@@ -1,8 +1,12 @@
 <?php
 require "db.php";
+$review_id=$_POST['review_id'];
+$review_id = mysqli_real_escape_string($connect,$review_id );
+$review_id = settype($a, 'integer');
 
-$review_id = settype(mysqli_real_escape_string($connect, $_POST['review_id']), 'integer');
-$book_id = settype(mysqli_real_escape_string($connect, $_POST['book_id']), 'integer');
+$book_id = $_POST['review_id'];
+$book_id = mysqli_real_escape_string($connect, $_POST['book_id']);
+$book_id = settype($book_id, 'integer');
 $delete_query = "DELETE FROM `reviews` WHERE `reviews`.`id` = $review_id";
 
 if (mysqli_query($connect, $delete_query)) {
