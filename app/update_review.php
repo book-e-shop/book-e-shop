@@ -1,7 +1,10 @@
 <?php
 require "db.php";
 
-$review_id = settype(mysqli_real_escape_string($connect, $_POST['review_id']), 'integer');
+$review_id=$_POST['review_id'];
+$review_id = mysqli_real_escape_string($connect,$review_id );
+$review_id = settype($a, 'integer');
+
 $title = mysqli_real_escape_string($connect, $_POST['title']);
 $review = mysqli_real_escape_string($connect, $_POST['review']);
 
