@@ -17,7 +17,7 @@ $Parsedown = new Parsedown();
 $text =  $Parsedown->text($review["review"]);
 
 
-#$text = set_id($text);
+$text = set_id($text);
 ?>
 
 
@@ -38,11 +38,11 @@ $text =  $Parsedown->text($review["review"]);
 
 
     <div class="row">
-        <div class="col">
-            
+        <div class="col toc">
+            <?php generate_toc($text)
+            ?>
         </div>
     </div>
-
 
     <div class="row">
         <div id="review" class="col">
@@ -91,7 +91,7 @@ $text =  $Parsedown->text($review["review"]);
             <div class="modal-body">
                 <form method="post" action="update_review.php" enctype="multipart/form-data">
                     <div class='form-group' hidden>
-                    <input id="review_id" name="review_id" value="<?php echo $review['id'] ?>" class="form-control" type="text">
+                        <input id="review_id" name="review_id" value="<?php echo $review['id'] ?>" class="form-control" type="text">
                     </div>
                     <div class="form-group" hidden>
                         <input id="book_id" name="book_id" value="<?php echo $review['book_id'] ?>" class="form-control" type="text">
@@ -137,6 +137,8 @@ $text =  $Parsedown->text($review["review"]);
     </div>
 </div>
 
+
 <?php
 include getcwd() . "/footer.php";
 ?>
+ 
