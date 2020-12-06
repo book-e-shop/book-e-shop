@@ -13,8 +13,6 @@ function set_id($text)
     $htmlDom = new DOMDocument;
     @$htmlDom->loadHTML($htmlContent);
 
-    $extractedHeaders = array();
-
     for ($i = 1; $i < 7; $i++) {
 
         $headers = $htmlDom->getElementsByTagName('h' . $i);
