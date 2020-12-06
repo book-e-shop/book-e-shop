@@ -28,41 +28,34 @@ function set_id($text)
     return $text;
 }
 
+function add_item($key, $value)
+{
+    $a = "<a class='btn-link'  href = '#" . $key . "'>" . $value . "</a>";
+    echo "<li>" . $a . "</li>";
+}
 function generate_toc($html)
 {
     $links =  extractHeaders($html);
     $keys = array_keys($links);
     echo "<h1>Содержание</h1>";
     $p = 0;
-    $opened = 0;
-
     for ($i = 0; $i < count($keys); $i++) {
         $I = intval(substr(explode("_", $keys[$i])[0], 1));
-
         if ($I > $p) {
             echo "<ul>";
-            $a = "<a class='btn-link'  href = '#" . $keys[$i] . "'>" . $links[$keys[$i]] . "</a>";
-            echo "<li>" . $a . "</li>";
-
-            $opened++;
+            add_item($keys[$i], $links[$keys[$i]]);
         }
 
-        if($I == $p) {
-            $a = "<a class='btn-link'  href = '#" . $keys[$i] . "'>" . $links[$keys[$i]] . "</a>";
-            echo "<li>" . $a . "</li>";
+        if ($I == $p) {
+            add_item($keys[$i], $links[$keys[$i]]);
         }
 
         if ($I < $p) {
-            for ($j = 0; $j <= $opened; $j++) {
+            for ($j = 0; $j <=  ($p - $I); $j++) {
                 echo "</ul>";
-                $opened--;
             }
-
             echo "<ul>";
-            $a = "<a class='btn-link'  href = '#" . $keys[$i] . "'>" . $links[$keys[$i]] . "</a>";
-            echo "<li>" . $a . "</li>";
-
-            $opened++;
+            add_item($keys[$i], $links[$keys[$i]]);
         }
 
         $p = $I;
