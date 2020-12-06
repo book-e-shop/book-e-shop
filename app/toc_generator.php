@@ -30,39 +30,41 @@ function set_id($text)
 
 function generate_toc($html)
 {
-    $iter = 0;
-
     $links =  extractHeaders($html);
     $keys = array_keys($links);
     echo "<h1>Содержание</h1>";
-    $is_open = FALSE;
     $p = 0;
-
     $opened = 0;
+
     for ($i = 0; $i < count($keys); $i++) {
         $I = intval(substr(explode("_", $keys[$i])[0], 1));
-        echo $opened;
-        echo $I;
+
         if ($I > $p) {
             echo "<ul>";
-            $opened++;
             $a = "<a class='btn-link'  href = '#" . $keys[$i] . "'>" . $links[$keys[$i]] . "</a>";
             echo "<li>" . $a . "</li>";
-        }
-        if ($I === $p) {
-            $a = "<a class='btn-link'  href = '#" . $keys[$i] . "'>" . $links[$keys[$i]] . "</a>";
-            echo "<li>" . $a . "</li>";
-        }
-        if ($I < $p) {
 
-            for ($j = 0; $j < $opened - $I + 1; $j++)
+            $opened++;
+        }
+
+        if($I == $p) {
+            $a = "<a class='btn-link'  href = '#" . $keys[$i] . "'>" . $links[$keys[$i]] . "</a>";
+            echo "<li>" . $a . "</li>";
+        }
+
+        if ($I < $p) {
+            for ($j = 0; $j <= $opened; $j++) {
                 echo "</ul>";
-            $opened = $opened - $I ;
+                $opened--;
+            }
+
             echo "<ul>";
             $a = "<a class='btn-link'  href = '#" . $keys[$i] . "'>" . $links[$keys[$i]] . "</a>";
             echo "<li>" . $a . "</li>";
+
+            $opened++;
         }
-       
+
         $p = $I;
     }
 }
