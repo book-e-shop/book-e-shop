@@ -66,7 +66,7 @@ $text = set_id($text);
                     <input id='review_id' name='review_id' value='" . $review['id'] . "'class='form-control' type='text'>
                 </div>
                 <div class='form-group' hidden>
-                    <input id='review_id' name='book_id' value='" . $review['book_id'] . "'class='form-control' type='text'>
+                    <input id='book_id' name='book_id' value='" . $review['book_id'] . "'class='form-control' type='text'>
                 </div>
                 <div class='form-group'>
                     <button type='submit' name='delete_review' class='btn btn-primary' data-toggle='button'>Удалить рецензию</button>
