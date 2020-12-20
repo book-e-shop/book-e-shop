@@ -16,6 +16,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
 
+
+
 </head>
 
 <body>
@@ -43,7 +45,7 @@
                 <h2 id='shoppingCart'><i class="fas fa-shopping-cart"></i></h2>
             </a>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2" id="user">
             <?php if (isset($_SESSION['logged_user'])) : ?>
 
                 <div class="dropdown">
@@ -58,7 +60,7 @@
 
             <?php else : ?>
 
-                <a href="" data-toggle="modal" data-target="#modalLoginForm">
+                <a href="" data-toggle="modal" data-target="#captchaModal">
                     <h2 id='signIn'><i class="fas fa-sign-in-alt"></i></h2>
                 </a>
 
@@ -88,7 +90,7 @@
 
                     <div class='tab-content'>
                         <div class="tab-pane fade show active" id="Login">
-                            <form action='signin.php' method='post'>
+                            <form id="signin-form" method='post'>
                                 <div class="form-group">
                                     <label for="login">Логин</label>
                                     <input type="text" id="login" name='login' class="form-control" required>
@@ -97,13 +99,13 @@
                                     <label for="password">Пароль</label>
                                     <input type="password" id="password" name='password' class="form-control validate" required>
                                 </div>
-                                <button type="submit" name='do_login' class="btn btn-primary" data-toggle="button">Войти</button>
+                                <button type="button" id="signin-button" name='do_login' class="btn btn-primary" data-toggle="button">Войти</button>
                                 <p></p>
                             </form>
                         </div>
 
                         <div class="tab-pane fade" id="Registration">
-                            <form action='signup.php' method='post'>
+                            <form id="signup-form" method='post'>
                                 <div class="form-group">
                                     <label for="surname">Фамилия</label>
                                     <input type="text" id="surname" name='surname' class="form-control" required>
@@ -129,7 +131,7 @@
                                     <input type="password" id="password_confirm" name='password_confirm' class="form-control validate" required>
                                 </div>
 
-                                <button type="submit" name='do_signup' class="btn btn-primary" data-toggle="button">Зарегистрироваться</button>
+                                <button type="button" id="signup-button" name='do_signup' class="btn btn-primary" data-toggle="button">Зарегистрироваться</button>
                                 <p></p>
                             </form>
                         </div>
@@ -139,6 +141,31 @@
         </div>
     </div>
 
+    <div class="modal fade" id="captchaModal" tabindex="-1" aria-labelledby="captchaModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="captchaModalLabel">CAPTCHA</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="captcha">
+
+                    </div>
+                    
+                    <form id="captcha-form" method='post'>
+                        <div class="form-group">
+                            <label for="captcha_input">Введите captcha</label>
+                            <input type="text" id="captcha_input" name='captcha_input' class="form-control validate" required>
+                        </div>
+                        <button type="button" id="captcha-submit-button"  class="btn btn-primary" data-toggle="button">Подтвердить</button>
+                        <button type="button" id="captcha-refresh-button"   class="btn btn-primary" data-toggle="button">Обновить</button>
+                        <p></p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <nav id="sidebar">
 
@@ -171,3 +198,8 @@
     </nav>
 
     <script src="../assets/js/ajax_search.js"></script>
+    <script src="../assets/js/captcha.js">
+    </script>
+
+    <script src="../assets/js/authorization.js">
+    </script>
