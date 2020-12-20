@@ -92,6 +92,27 @@ $book = mysqli_fetch_assoc($book);
             ?>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <h2>Фрагмент книги</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+            <script type="text/javascript">
+                google.books.load();
+
+                function initialize() {
+                    var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+                    viewer.load("<?php echo "ISBN:" . str_replace("-", "", $book['ISBN']); ?>");
+                }
+
+                google.books.setOnLoadCallback(initialize);
+            </script>
+            <div id="viewerCanvas" style="width: 100%; height: 50vh"></div>
+        </div>
+    </div>
 </div>
 
 
