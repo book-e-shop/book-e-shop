@@ -35,14 +35,15 @@
             </a>
         </div>
         <div class="col-md-5">
-            <input class="form-control" type="search" placeholder="Поиск" aria-label="Search">
+            <input class="form-control" id='search' type="text" placeholder="Поиск" aria-label="Search">
+
+            <div id="searchResult"></div>
         </div>
 
         <div class="col-md-1">
             <a href="404.php">
                 <h2 id='shoppingCart'><i class="fas fa-shopping-cart"></i></h2>
             </a>
-
         </div>
         <div class="col-md-2" id="user">
             <?php if (isset($_SESSION['logged_user'])) : ?>
@@ -196,6 +197,7 @@
 
     </nav>
 
+    <script src="../assets/js/ajax_search.js"></script>
     <script src="../assets/js/captcha.js">
     </script>
 
