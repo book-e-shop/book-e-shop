@@ -14,7 +14,7 @@ $(document).ready(function () {
         });
     }
 
-    $('#search').on('keyup change click', function () {
+    $('#search').on('keyup change', function () {
         var search = $(this).val();
         
         if (search.length > 3) {

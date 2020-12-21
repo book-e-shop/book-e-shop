@@ -7,7 +7,9 @@ if (isset($_POST["query"])) {
 
     $searched_books = mysqli_query(
         $connect,
-        "SELECT * FROM `books` WHERE MATCH (`name`, `description`) AGAINST ('$search*' IN BOOLEAN MODE) ORDER BY `name`"
+        "SELECT `books`.*, MATCH (`name`, `description`) AGAINST ('$search') AS score, MATCH (`name`) AGAINST ('$search') AS name_score 
+        FROM `books` WHERE MATCH (`name`, `description`) AGAINST ('$search*' IN BOOLEAN MODE)
+        ORDER BY name_score DESC, score DESC;"
     );
 
     if (mysqli_num_rows($searched_books) > 0) {
