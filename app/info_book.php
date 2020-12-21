@@ -12,7 +12,15 @@ $book = mysqli_fetch_assoc($book);
 ?>
 
 
-
+<style>
+    .review {
+        width: 100%;
+        height: 100px;
+        border: 1px solid black;
+        resize: vertical;
+        overflow: auto;
+    }
+</style>
 <div class='container body-content'>
 
     <div class='row'>
@@ -116,6 +124,16 @@ $book = mysqli_fetch_assoc($book);
 </div>
 
 
+<script>
+    function getContent() {
+        document.getElementById("review").value = document.getElementById("reviewDIV").innerHTML;
+    }
+</script>
+
+
+
+
+
 
 
 <div class="modal fade" id="addReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -128,7 +146,7 @@ $book = mysqli_fetch_assoc($book);
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="add_review.php" enctype="multipart/form-data">
+                <form id="speller-form" onsubmit="return getContent()" method="post" action="add_review.php" enctype="multipart/form-data">
 
                     <div class="form-group" hidden>
                         <input id="book_id" name="book_id" value="<?php echo $book['id'] ?>" class="form-control" type="text">
@@ -145,7 +163,8 @@ $book = mysqli_fetch_assoc($book);
                         <label for="description">
                             <h4>Рецензия</h4>
                         </label>
-                        <textarea id="review" maxlength="10000" name="review" class="form-control"></textarea>
+                        <div id="reviewDIV" class="review" contenteditable="true"></div>
+                        <textarea id="review" maxlength="10000" style="display:none" name="review" class="form-control"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -162,6 +181,8 @@ $book = mysqli_fetch_assoc($book);
 
                     <div class="form-group">
                         <button type="submit" name='add_book' class="btn btn-primary" data-toggle="button">Добавить</button>
+
+                        <button type="button" id='speller' class="btn btn-primary" data-toggle="button">Проверить ошибки</button>
                     </div>
 
                 </form>
@@ -174,6 +195,9 @@ $book = mysqli_fetch_assoc($book);
     </div>
 </div>
 
+
+<script src="../assets/js/speller.js">
+</script>
 
 <?php
 include getcwd() . "/footer.php";

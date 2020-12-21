@@ -15,7 +15,7 @@
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js"></script>
 
 
 </head>
@@ -150,14 +150,14 @@
                     <div id="captcha">
 
                     </div>
-                    
+
                     <form id="captcha-form" method='post'>
                         <div class="form-group">
                             <label for="captcha_input">Введите captcha</label>
                             <input type="text" id="captcha_input" name='captcha_input' class="form-control validate" required>
                         </div>
-                        <button type="button" id="captcha-submit-button"  class="btn btn-primary" data-toggle="button">Подтвердить</button>
-                        <button type="button" id="captcha-refresh-button"   class="btn btn-primary" data-toggle="button">Обновить</button>
+                        <button type="button" id="captcha-submit-button" class="btn btn-primary" data-toggle="button">Подтвердить</button>
+                        <button type="button" id="captcha-refresh-button" class="btn btn-primary" data-toggle="button">Обновить</button>
                         <p></p>
                     </form>
                 </div>
