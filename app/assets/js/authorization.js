@@ -1,5 +1,4 @@
 function signup(event) {
-    console.log($("#signup-form").serialize())
     $.ajax({
         type: "POST",
         url: "/signup.php",
@@ -7,7 +6,16 @@ function signup(event) {
 
         success: function (response) {
 
-            $("#modalLoginForm").modal('toggle');
+            var res = jQuery.parseJSON(response);
+
+            if (res.result) {
+
+                alert(res.message)
+                $("#modalLoginForm").modal('toggle');
+            }
+            else {
+                alert(res.message)
+            }
         },
         error: function (response) {
             console.log("error");
@@ -18,27 +26,36 @@ function signup(event) {
 }
 
 function signin(event) {
-    console.log($("#signin-form").serialize())
+
     $.ajax({
         type: "POST",
         url: "/signin.php",
         data: $("#signin-form").serialize(),
 
         success: function (response) {
-            $("#user").html(response)
-            $("#modalLoginForm").modal('toggle');
+            var res = jQuery.parseJSON(response);
+
+            if (res.result) {
+
+                $("#user").html(res.message)
+                $("#modalLoginForm").modal('toggle');
+            }
+            else {
+                alert(res.message)
+            }
+
         },
         error: function (response) {
-            $("#user").html(response)
+            console.log("error");
+            console.log(response);
         },
     });
 
 }
 
-var signinButton = document.getElementById("signin-button");
+
 
 $("#signin-button").on("click", signin);
 
-var signupButton = document.getElementById("signup-button");
 
-signupButton.addEventListener("click", signup);
+$("#signup-button").on("click", signup);

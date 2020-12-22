@@ -11,7 +11,11 @@ $password = $_POST['password'];
 $password_confirm = $_POST['password_confirm'];
 
 $errors = array();
+$result = mysqli_query($connect, "select * from `users` WHERE  `login` = '$login'");
 
+if (mysqli_num_rows($result) != 0) {
+    $errors[] = "Данный логин занят!";
+}
 if ($password != $password_confirm) {
     $errors[] = "Повторный пароль введен не верно!";
 }
@@ -38,16 +42,19 @@ if (mysqli_num_rows($check_user) != 0) {
     $errors[] = "Пользователь с таким логином уже существует";
 }
 
-// сделать проверку на уникальность логина и почты
 
 if (empty($errors)) {
-
+    $response["result"] = TRUE;
+    $response["message"] = "Авторизация проведена успешно!";
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     mysqli_query($connect, "INSERT INTO `users` (`id`, `login`, `email`, `name`, `surname`, `password`) VALUES (NULL, '$login', '$email', '$name', '$surname', '$password')");
-
-    header('Location: index.php');
 } else {
-    // array_shift() извлекает первое значение массива array и возвращает его, сокращая размер array на один элемент. 
-    echo '<div style="color: red; ">' . array_shift($errors) . '</div><hr>';
+
+    $response["result"] = FALSE;
+
+
+    $response["message"] = array_shift($errors);
 }
+
+echo json_encode($response);

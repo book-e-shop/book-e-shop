@@ -71,9 +71,7 @@ $book = mysqli_fetch_assoc($book);
         </div>
 
         <div id="content" class="col-sm">
-            <button class="btn btn-primary" data-toggle="modal" <?php if (isset($_SESSION['logged_user'])) echo "data-target=\"#addReview\"";
-                                                                else echo "data-target=\"#modalLoginForm\"";
-                                                                ?>>Добавить рецензию</button>
+            <button id="addReviewBTN" class="btn btn-primary" data-toggle="modal" data-target="#addReview">Добавить рецензию</button>
         </div>
     </div>
 
@@ -111,14 +109,20 @@ $book = mysqli_fetch_assoc($book);
             <script type="text/javascript">
                 google.books.load();
 
+                function alertInitialized() {
+                    $("#viewerCanvas").html("<h4>Фрагмент не найден</h4>")
+                    $("#viewerCanvas").height(10);
+
+                }
+
                 function initialize() {
                     var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-                    viewer.load("<?php echo "ISBN:" . str_replace("-", "", $book['ISBN']); ?>");
+                    viewer.load("<?php echo "ISBN:" . str_replace("-", "", $book['ISBN']); ?>", alertInitialized);
                 }
 
                 google.books.setOnLoadCallback(initialize);
             </script>
-            <div id="viewerCanvas" style="width: 100%; height: 50vh"></div>
+            <div id="viewerCanvas" style="width: 100%; height: 50vh;text-align: center;"></div>
         </div>
     </div>
 </div>

@@ -16,9 +16,9 @@ if (mysqli_num_rows($check_user) > 0) {
 
     if (password_verify($_POST['password'], $user['password'])) {
 
-
+        $response["result"] = TRUE;
         $_SESSION['logged_user'] = $user;
-        echo "<div class='dropdown'>
+        $response["message"] =  "<div class='dropdown'>
         <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
            " . $_SESSION['logged_user']['name'] . " " . $_SESSION['logged_user']['surname'] . "
         </button>
@@ -27,6 +27,9 @@ if (mysqli_num_rows($check_user) > 0) {
             <a class='dropdown-item' href='/logout.php'>Выйти</a>
         </div>
     </div>";
+    } else {
+
+        $errors[] = 'Неверный логин или пароль';
     }
 } else {
 
@@ -35,5 +38,10 @@ if (mysqli_num_rows($check_user) > 0) {
 
 if (!empty($errors)) {
 
-    echo '<div style="color: red; ">' . array_shift($errors) . '</div><hr>';
+    $response["result"] = FALSE;
+
+
+    $response["message"] = array_shift($errors);
 }
+
+echo json_encode($response);

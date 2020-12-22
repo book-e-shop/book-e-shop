@@ -34,7 +34,7 @@ function verifyCaptcha(event) {
                 $("#modalLoginForm").modal('show');
             }
             else {
-
+                alert("Неправильный код!")
                 getCaptcha();
             }
         },
