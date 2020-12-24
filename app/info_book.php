@@ -31,7 +31,7 @@ $book = mysqli_fetch_assoc($book);
         </div>
 
         <div class="col-sm-7">
-            <h2><?php echo $book['author'] . '. ' . $book['name'] ?></h2>
+            <h1><?php echo $book['author'] . '. ' . $book['name'] ?></h1>
             <h3>Описание</h3>
             <div class='info_book'>
                 <?php echo $book['description']; ?>
@@ -65,66 +65,219 @@ $book = mysqli_fetch_assoc($book);
             </table>
         </div>
     </div>
-    <div class="row">
-        <div id="content" class="col-sm">
-            <h2>Рецензии</h2>
-        </div>
 
-        <div id="content" class="col-sm">
-            <button id="addReviewBTN" class="btn btn-primary" data-toggle="modal" data-target="#addReview">Добавить рецензию</button>
+    <div class="row">
+        <div class="col-sm">
+            <div class="card mcard">
+                <div class="card-header">
+                    <h1>Рейтинг</h1>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <h3>Моя оценка</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                1
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                2
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                3
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                4
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                5
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <h3>Средняя оценка</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h1><i class="fas fa-star">5</i></h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <h3>Распределение оценок</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul class="list-group">
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                                <i class="fas fa-star">5</i>
+                                                <span class="badge badge-success  badge-pill">14</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <i class="fas fa-star"> 4</i>
+                                                <span class="badge badge-primary badge-pill">2</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <i class="fas fa-star">3</i>
+                                                <span class="badge badge-info badge-pill">1</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <i class="fas fa-star">2</i>
+                                                <span class="badge badge-warning  badge-pill">1</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <i class="fas fa-star">1</i>
+                                                <span class="badge badge-danger badge-pill">1</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm">
-            <?php
+            <div class="card mcard">
+                <div class="card-header">
 
-            if (mysqli_query($connect, 'select 1 from `reviews` LIMIT 1') !== FALSE) {
-                $amountReviews = 0;
+                    <h1>Рецензии</h1>
 
-                $reviews = mysqli_query($connect, "SELECT * FROM `reviews` WHERE `book_id` = '$book_id'");
+                    <button id="addReviewBTN" class="btn btn-primary" data-toggle="modal" data-target="#addReview">Добавить рецензию</button>
 
-                echo "<ul class='list-group'>";
-                while ($review = mysqli_fetch_assoc($reviews)) {
+                </div>
+                <div class="card-body">
+                    <?php
 
-                    $amountReviews++;
-                    $a = "<a href=reviews.php?" . $review['id'] . ">
-        <h3>" . $review["title"] . "</h3>
-        </a>";
-                    echo "<li class=\"list-group-item\">" . $a . "</li>";
-                }
-                echo "</ul>";
-            }
-            ?>
+                    if (mysqli_query($connect, 'select 1 from `reviews` LIMIT 1') !== FALSE) {
+                        $amountReviews = 0;
+
+                        $reviews = mysqli_query($connect, "SELECT * FROM `reviews` WHERE `book_id` = '$book_id'");
+
+                        echo "<ul class='list-group-flush'>";
+                        while ($review = mysqli_fetch_assoc($reviews)) {
+
+                            $amountReviews++;
+                            $a = "<a href=reviews.php?" . $review['id'] . "><h3>" . $review["title"] . "</h3></a>";
+                            echo "<li class=\"list-group-item\">" . $a . "</li>";
+                        }
+                        echo "</ul>";
+                    }
+                    ?>
+                </div>
+            </div>
+
         </div>
     </div>
+
+
+    <div class="row">
+        <div id="content" class="col-sm">
+
+            <div class="card mcard">
+                <div class="card-header">
+                    <h1>Комментарии</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm">
+                            <form id="comments-form" onsubmit="return getContent()" method="post" action="add_review.php" enctype="multipart/form-data">
+
+                                <div class="form-group" hidden>
+                                    <input id="book_id" name="book_id" value="<?php echo $book['id'] ?>" class="form-control" type="text">
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea id="comment" maxlength="500" name="comment" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <button id="add-comment-btn" type="button" class="btn btn-primary" data-toggle="button">Добавить</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm" id="comments">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="row">
         <div class="col">
-            <h2>Фрагмент книги</h2>
+            <div class="card mcard">
+                <div class="card-header">
+                    <h1>Фрагмент книги</h1>
+                </div>
+                <div class="card-body">
+                    <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+                    <script type="text/javascript">
+                        google.books.load();
+
+                        function alertInitialized() {
+                            $("#viewerCanvas").html("<h4>Фрагмент не найден</h4>")
+                            $("#viewerCanvas").height(10);
+
+                        }
+
+                        function initialize() {
+                            var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+                            viewer.load("<?php echo "ISBN:" . str_replace("-", "", $book['ISBN']); ?>", alertInitialized);
+                        }
+
+                        google.books.setOnLoadCallback(initialize);
+                    </script>
+                    <div id="viewerCanvas" style="width: 100%; height: 50vh;text-align: center;"></div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
-            <script type="text/javascript">
-                google.books.load();
 
-                function alertInitialized() {
-                    $("#viewerCanvas").html("<h4>Фрагмент не найден</h4>")
-                    $("#viewerCanvas").height(10);
-
-                }
-
-                function initialize() {
-                    var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-                    viewer.load("<?php echo "ISBN:" . str_replace("-", "", $book['ISBN']); ?>", alertInitialized);
-                }
-
-                google.books.setOnLoadCallback(initialize);
-            </script>
-            <div id="viewerCanvas" style="width: 100%; height: 50vh;text-align: center;"></div>
-        </div>
-    </div>
 </div>
 
 
@@ -202,6 +355,10 @@ $book = mysqli_fetch_assoc($book);
 
 <script src="../assets/js/speller.js">
 </script>
+
+<script src="../assets/js/comments.js">
+</script>
+
 
 <?php
 include getcwd() . "/footer.php";
