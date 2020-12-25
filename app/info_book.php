@@ -25,9 +25,18 @@ $book = mysqli_fetch_assoc($book);
 
     <div class='row'>
         <div class="col-sm-3">
-            <figure class="sign">
-                <p><img src=<?php echo $book['cover'] ?> width="250px" height="326px"></p>
-            </figure>
+            <form id="put_in_basket" method="post" action="put_in_basket.php">
+                <div class="form-group" hidden>
+                    <input id="book_id" name="book_id" value="<?php echo $book['id'] ?>" class="form-control" type="text">
+                </div>
+
+                <figure class="sign">
+                    <p><img src=<?php echo $book['cover'] ?> width="250px" height="326px"></p>
+
+                    <button class="btn btn-primary btn-lg btn-block" name='in_basket' type="submit">В корзину</button>
+                </figure>
+            </form>
+
         </div>
 
         <div class="col-sm-7">
@@ -38,6 +47,8 @@ $book = mysqli_fetch_assoc($book);
             </div>
         </div>
     </div>
+
+    <br></br>
 
     <div class="row">
         <div class="col">
