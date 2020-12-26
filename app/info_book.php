@@ -25,17 +25,13 @@ $book = mysqli_fetch_assoc($book);
 
     <div class='row'>
         <div class="col-sm-3">
-            <form id="put_in_basket" method="post" action="put_in_basket.php">
-                <div class="form-group" hidden>
-                    <input id="book_id" name="book_id" value="<?php echo $book['id'] ?>" class="form-control" type="text">
-                </div>
-
                 <figure class="sign">
                     <p><img src=<?php echo $book['cover'] ?> width="250px" height="326px"></p>
 
-                    <button class="btn btn-primary btn-lg btn-block" name='in_basket' type="submit">В корзину</button>
+                    <?php if (isset($_SESSION['logged_user'])) : ?>
+                        <button class="btn btn-primary btn-lg btn-block" name='inBasket' type="button">В корзину</button>
+                    <?php endif; ?>
                 </figure>
-            </form>
 
         </div>
 
@@ -363,6 +359,8 @@ $book = mysqli_fetch_assoc($book);
     </div>
 </div>
 
+<script src="../assets/js/basket.js">
+</script>
 
 <script src="../assets/js/speller.js">
 </script>

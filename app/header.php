@@ -61,7 +61,7 @@
 
             <?php else : ?>
 
-                <a href="" data-toggle="modal" data-target="#captchaModal">
+                <a href="" data-toggle="modal" data-target="#modalLoginForm">
                     <h2 id='signIn'><i class="fas fa-sign-in-alt"></i></h2>
                 </a>
 
