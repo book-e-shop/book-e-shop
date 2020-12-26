@@ -221,10 +221,7 @@ $book = mysqli_fetch_assoc($book);
                         <div class="col-sm">
                             <form id="comments-form" onsubmit="return getContent()" method="post" action="add_review.php" enctype="multipart/form-data">
 
-                                <div class="form-group" hidden>
-                                    <input id="book_id" name="book_id" value="<?php echo $book['id'] ?>" class="form-control" type="text">
-                                </div>
-
+                            
                                 <div class="form-group">
                                     <textarea id="comment" maxlength="500" name="comment" class="form-control"></textarea>
                                 </div>

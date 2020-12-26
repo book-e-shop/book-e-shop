@@ -31,16 +31,16 @@ function getComments(event) {
 
                 html += "<div class='be-comment'>"
                 html += "<div class='be-comment-content'>"
-                html += "<span class='be-comment-name'>"
+                html += "<div class='be-comment-name'>"
                 html += res[k]["author"]
-                html += "</span>"
-                html += "<span class='be-comment-time'>"
+                html += "</div>"
+                html += "<div class='be-comment-time'>"
                 html += res[k]["date"]
-                html += "</span>"
+                html += "</div>"
 
-                html += "<p class='be-comment-text'>"
+                html += "<div class='be-comment-text'>"
                 html += res[k]["comment"]
-                html += "</p>"
+                html += "</div>"
                 html += "</div>"
                 html += "</div>"
 
