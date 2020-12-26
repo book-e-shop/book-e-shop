@@ -1,7 +1,9 @@
 $(document).ready(function () {
     $('#inBasket').on('click', function (query) {
-        alert("Click");
+        
+        $(this).text('Добавлено');
         $(this).css('background-color', 'green');
+        $(this).prop('disabled', true);
 
         $.ajax({
             url: "../../basket.php",

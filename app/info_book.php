@@ -29,7 +29,7 @@ $book = mysqli_fetch_assoc($book);
                     <p><img src=<?php echo $book['cover'] ?> width="250px" height="326px"></p>
 
                     <?php if (isset($_SESSION['logged_user'])) : ?>
-                        <button class="btn btn-primary btn-lg btn-block" name='inBasket' type="button">В корзину</button>
+                        <button class="btn btn-primary btn-lg btn-block" name='inBasket' id='inBasket' type="button">В корзину</button>
                     <?php endif; ?>
                 </figure>
 
