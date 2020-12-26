@@ -25,9 +25,14 @@ $book = mysqli_fetch_assoc($book);
 
     <div class='row'>
         <div class="col-sm-3">
-            <figure class="sign">
-                <p><img src=<?php echo $book['cover'] ?> width="250px" height="326px"></p>
-            </figure>
+                <figure class="sign">
+                    <p><img src=<?php echo $book['cover'] ?> width="250px" height="326px"></p>
+
+                    <?php if (isset($_SESSION['logged_user'])) : ?>
+                        <button class="btn btn-primary btn-lg btn-block" name='inBasket' id='inBasket' type="button">В корзину</button>
+                    <?php endif; ?>
+                </figure>
+
         </div>
 
         <div class="col-sm-7">
@@ -38,6 +43,8 @@ $book = mysqli_fetch_assoc($book);
             </div>
         </div>
     </div>
+
+    <br></br>
 
     <div class="row">
         <div class="col">
@@ -349,6 +356,8 @@ $book = mysqli_fetch_assoc($book);
     </div>
 </div>
 
+<script src="../assets/js/basket.js">
+</script>
 
 <script src="../assets/js/speller.js">
 </script>
