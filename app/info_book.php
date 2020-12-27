@@ -25,13 +25,13 @@ $book = mysqli_fetch_assoc($book);
 
     <div class='row'>
         <div class="col-sm-3">
-                <figure class="sign">
-                    <p><img src=<?php echo $book['cover'] ?> width="250px" height="326px"></p>
+            <figure class="sign">
+                <p><img src=<?php echo $book['cover'] ?> width="250px" height="326px"></p>
 
-                    <?php if (isset($_SESSION['logged_user'])) : ?>
-                        <button class="btn btn-primary btn-lg btn-block" name='inBasket' id='inBasket' type="button">В корзину</button>
-                    <?php endif; ?>
-                </figure>
+                <?php if (isset($_SESSION['logged_user'])) : ?>
+                    <button class="btn btn-primary btn-lg btn-block" name='inBasket' id='inBasket' type="button">В корзину</button>
+                <?php endif; ?>
+            </figure>
 
         </div>
 
@@ -91,35 +91,35 @@ $book = mysqli_fetch_assoc($book);
                                 <div class="row">
                                     <div class="col-sm">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <input id="ri1" class="form-check-input rating-input" star="1" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 1
                                             </label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <input id="ri2" class="form-check-input rating-input" star="2" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 2
                                             </label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <input id="ri3" class="form-check-input rating-input" star="3" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 3
                                             </label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <input id="ri4" class="form-check-input rating-input" star="4" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 4
                                             </label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <input id="ri5" class="form-check-input rating-input" star="5" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 5
                                             </label>
@@ -135,7 +135,7 @@ $book = mysqli_fetch_assoc($book);
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <h1><i class="fas fa-star">5</i></h1>
+                                        <h1 id="mean-rating"></h1>
                                     </div>
                                 </div>
                             </div>
@@ -150,24 +150,24 @@ $book = mysqli_fetch_assoc($book);
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
 
-                                                <i class="fas fa-star">5</i>
-                                                <span class="badge badge-success  badge-pill">14</span>
+                                                <i class="fas fa-star"> 5</i>
+                                                <span id="r5" class="badge badge-success  badge-pill"></span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 <i class="fas fa-star"> 4</i>
-                                                <span class="badge badge-primary badge-pill">2</span>
+                                                <span id="r4" class="badge badge-primary badge-pill"></span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <i class="fas fa-star">3</i>
-                                                <span class="badge badge-info badge-pill">1</span>
+                                                <i class="fas fa-star"> 3</i>
+                                                <span id="r3" class="badge badge-info badge-pill"></span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <i class="fas fa-star">2</i>
-                                                <span class="badge badge-warning  badge-pill">1</span>
+                                                <i class="fas fa-star"> 2</i>
+                                                <span id="r2" class="badge badge-warning  badge-pill"></span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <i class="fas fa-star">1</i>
-                                                <span class="badge badge-danger badge-pill">1</span>
+                                                <i class="fas fa-star"> 1</i>
+                                                <span id="r1" class="badge badge-danger badge-pill"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -228,7 +228,7 @@ $book = mysqli_fetch_assoc($book);
                         <div class="col-sm">
                             <form id="comments-form" onsubmit="return getContent()" method="post" action="add_review.php" enctype="multipart/form-data">
 
-                            
+
                                 <div class="form-group">
                                     <textarea id="comment" maxlength="500" name="comment" class="form-control"></textarea>
                                 </div>
@@ -364,7 +364,8 @@ $book = mysqli_fetch_assoc($book);
 
 <script src="../assets/js/comments.js">
 </script>
-
+<script src="../assets/js/rating.js">
+</script>
 
 <?php
 include getcwd() . "/footer.php";

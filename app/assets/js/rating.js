@@ -1,13 +1,27 @@
-function addComment(event) {
+function updateRating(event) {
+    var star = $(this).attr('star');
+    var query = window.location.href
+
+    var book_id = query.split("?")[1];
+
+    var ch = false;
+    var action = "delete"
+    if ($(this).prop("checked")) {
+        ch = true;
+    }
+    $(".rating-input").prop("checked", false);
+    if (ch) {
+        $(this).prop("checked", true);
+        action = "update";
+    }
     $.ajax({
         type: "POST",
-        url: "/add_comments.php",
-        data: $("#comments-form").serialize(),
+        url: "/rating.php",
+        data: { book_id: book_id, rating: star, action: action },
 
         success: function (response) {
 
-            $("#comments-form").find("textarea").val("");
-            getComments();
+            getRating();
         },
         error: function (response) {
             console.log("error");
@@ -15,39 +29,39 @@ function addComment(event) {
         },
     });
 
+
 }
 
-function getComments(event) {
-    console.log("afa")
+function getRating(event) {
+    var query = window.location.href
+
+    var book_id = query.split("?")[1];
+
+
     $.ajax({
         type: "POST",
-        url: "/get_comments.php",
-        data: $("#comments-form").serialize(),
+        url: "/rating.php",
+        data: { book_id: book_id, action: "get" },
 
         success: function (response) {
+            console.log(response)
             var res = jQuery.parseJSON(response);
-            html = ""
-            for (var k in res) {
-
-                html += "<div class='be-comment'>"
-                html += "<div class='be-comment-content'>"
-                html += "<div class='be-comment-name'>"
-                html += res[k]["author"]
-                html += "</div>"
-                html += "<div class='be-comment-time'>"
-                html += res[k]["date"]
-                html += "</div>"
-
-                html += "<div class='be-comment-text'>"
-                html += res[k]["comment"]
-                html += "</div>"
-                html += "</div>"
-                html += "</div>"
-
-
-
+            if (!res['canEdit']) {
+                $(".rating-input").attr("disabled", true);
             }
-            $("#comments").html(html)
+            else {
+                $(".rating-input").removeAttr("disabled");
+                $("#ri" + res["rating"]).prop("checked", true);
+                alert()
+            }
+
+            $("#mean-rating").html("<i class='fas fa-star'>" + res["total"] + "</i>");
+            $("#r1").html(res["r1"]);
+            $("#r2").html(res["r2"]);
+            $("#r3").html(res["r3"]);
+            $("#r4").html(res["r4"]);
+            $("#r5").html(res["r5"]);
+
 
         },
         error: function (response) {
@@ -60,5 +74,6 @@ function getComments(event) {
 
 
 
-$("#add-comment-btn").on("click", addComment);
+$(".rating-input").change(updateRating);
 
+$(document).ready(getRating)
