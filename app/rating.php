@@ -1,5 +1,7 @@
 <?php
 require "db.php";
+require "logs.php";
+
 @session_start();
 
 $action = $_POST['action'];
@@ -29,7 +31,7 @@ if (isset($_SESSION['logged_user']))
     $user_id = mysqli_real_escape_string($connect, $_SESSION['logged_user']['id']);
 
 if ($action === "update") {
-    $result = mysqli_query($connect, "SELECT * FROM `rating` WHERE `user_id` = '$user_id'");
+    $result = mysqli_query($connect, "SELECT * FROM `rating` WHERE `book_id` = $book_id AND  `user_id` = '$user_id'");
 
     $rating = mysqli_real_escape_string($connect, $_POST['rating']);
 
@@ -38,7 +40,7 @@ if ($action === "update") {
                          VALUES ('$rating', CURDATE() , '$book_id','$user_id');";
 
         if (mysqli_query($connect, $insert_query)) {
-            $is_added = TRUE;
+            add_log('rating', mysqli_insert_id($connect), 'Добавление', $user_id);
 
             echo "Обзор успешно добавлена";
         }
@@ -48,7 +50,7 @@ if ($action === "update") {
         $update_query = "UPDATE `rating` SET `rating` = '$rating',`publish_date` = CURDATE() WHERE `book_id` = $book_id AND `user_id`=$user_id ;";
 
         if (mysqli_query($connect, $update_query)) {
-            echo "Обзор успешно удален";
+            add_log('rating', mysqli_insert_id($connect), 'Редактирование', $user_id);
         } else {
             echo mysqli_error($connect);
         }
@@ -63,7 +65,8 @@ if ($action === "delete") {
     $delete_query = "DELETE FROM `rating` WHERE `book_id` = $book_id AND `user_id`=$user_id ";
 
     if (mysqli_query($connect, $delete_query)) {
-        echo "Обзор успешно удален";
+        add_log('rating', mysqli_insert_id($connect), 'Удаление', $user_id);
+
     } else {
         echo mysqli_error($connect);
     }
@@ -95,6 +98,6 @@ if ($action === "get") {
         $total +=   $rate;
         $rating['r' . $rate] += 1;
     }
-    $rating['total'] = round($total / $count, 2);
+    $rating['total'] = round($total, 2);
     echo json_encode($rating);
 }

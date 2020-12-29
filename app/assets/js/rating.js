@@ -19,8 +19,8 @@ function updateRating(event) {
         url: "/rating.php",
         data: { book_id: book_id, rating: star, action: action },
 
-        success: function (response) {
-
+        success: function (response) {  
+            console.log(response)
             getRating();
         },
         error: function (response) {
@@ -52,7 +52,7 @@ function getRating(event) {
             else {
                 $(".rating-input").removeAttr("disabled");
                 $("#ri" + res["rating"]).prop("checked", true);
-                alert()
+                
             }
 
             $("#mean-rating").html("<i class='fas fa-star'>" + res["total"] + "</i>");

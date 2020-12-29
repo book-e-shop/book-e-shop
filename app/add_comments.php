@@ -1,5 +1,7 @@
 <?php
 require "db.php";
+require "logs.php";
+
 @session_start();
 
 $create_table_query = "CREATE TABLE  `comments` (
@@ -34,8 +36,8 @@ if (mysqli_query($connect, $insert_query)) {
 
     echo "Обзор успешно добавлена";
 }
+
+add_log('comments', mysqli_insert_id($connect), 'Добавление', $user_id);
 echo mysqli_error($connect);
 
 mysqli_close($connect);
-
-echo "<script>window.location = 'http://localhost/info_book.php?" . $book_id . "'</script>";

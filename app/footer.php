@@ -12,9 +12,7 @@
                 <a class="nav-link disabled" href="#" aria-disabled="true">Оплата</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/add_book.php" >Добавить книгу</a>
-            </li>
+          
 
         </ul>
     </div>
