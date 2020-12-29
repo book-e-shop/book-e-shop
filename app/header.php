@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-md-1">
-            <a href="404.php">
+            <a href="basket.php">
                 <h2 id='shoppingCart'><i class="fas fa-shopping-cart"></i></h2>
             </a>
         </div>

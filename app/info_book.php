@@ -6,7 +6,7 @@ include getcwd() . "/header.php";
 
 <?php
 $book_id = $_SERVER['QUERY_STRING'];
-settype($book_id, 'integer');
+$book_id = intval($book_id);
 $book = mysqli_query($connect, "SELECT * FROM `books` WHERE `id` = '$book_id'");
 $book = mysqli_fetch_assoc($book);
 ?>
@@ -30,6 +30,16 @@ $book = mysqli_fetch_assoc($book);
 
                 <?php if (isset($_SESSION['logged_user'])) : ?>
                     <button class="btn btn-primary btn-lg btn-block" name='inBasket' id='inBasket' type="button">В корзину</button>
+
+                    <?php if (isset($_SESSION['list_product'])) : ?>
+                        <?php if (in_array($book_id, $_SESSION['list_product'])) : ?>
+                            <script>
+                                $('#inBasket').text('Добавлено');
+                                $('#inBasket').css('background-color', 'green');
+                                $('#inBasket').prop('disabled', true);
+                            </script>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 <?php endif; ?>
             </figure>
 
