@@ -9,7 +9,7 @@ function addComment(event) {
         data: { book_id: book_id, comment: $("#comment").val() },
 
         success: function (response) {
-
+            console.log(response)
             $("#comments-form").find("textarea").val("");
             getComments();
         },
@@ -23,14 +23,15 @@ function addComment(event) {
 
 function getComments(event) {
     var query = window.location.href
-
+    $("#comments").html("")
     var book_id = query.split("?")[1];
     $.ajax({
         type: "POST",
         url: "/get_comments.php",
-        data: { book_id: book_id },
+        data: { get: 'comments', conditions: { book_id: book_id } },
 
         success: function (response) {
+
             console.log(response)
             var res = jQuery.parseJSON(response);
             html = ""
@@ -137,5 +138,4 @@ function enableUpdateComment(event) {
 }
 
 $("#add-comment-btn").on("click", addComment);
-
 $(document).ready(getComments)

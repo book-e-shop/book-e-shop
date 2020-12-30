@@ -373,6 +373,7 @@ $book = mysqli_fetch_assoc($book);
 </script>
 
 <script src="../assets/js/comments.js">
+
 </script>
 <script src="../assets/js/rating.js">
 </script>

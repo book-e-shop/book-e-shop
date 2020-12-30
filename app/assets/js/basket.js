@@ -1,17 +1,39 @@
-function getBasket() {
-    $.ajax({
+async function getBasket() {
+    await $.ajax({
         url: "/list_product.php",
         type: "POST",
 
-        success: function(data) {
+        success: function (data) {
+            console.log(data)
             var res = jQuery.parseJSON(data);
             $('#listProducts').html(res['output']);
+
         }
     });
+    setClickEvent()
+
 }
 
-$(document).ready(function() {
-    $('#inBasket').on('click', function() {
+function setClickEvent() {
+
+    $('.deleteBook').on('click', function () {
+        var book_id = $(this).attr('deletedBookId');
+
+        $.ajax({
+            url: "/delete_product.php",
+            type: "POST",
+            data: { book_id: book_id },
+
+            success: function (data) {
+                getBasket();
+
+            }
+        });
+    });
+
+}
+$(document).ready(function () {
+    $('#inBasket').on('click', function () {
         var query = window.location.href
         var book_id = query.split("?")[1];
 
@@ -24,27 +46,13 @@ $(document).ready(function() {
             type: "POST",
             data: { book_id: book_id },
 
-            success: function(data) {
+            success: function (data) {
 
             }
         });
     });
 
-    $('.deleteBook').on('click', function() {
-        var book_id = $(this).attr('deletedBookId');
 
-        alert(book_id);
+    getBasket()
 
-        $.ajax({
-            url: "/delete_product.php",
-            type: "POST",
-            data: { book_id: book_id },
-
-            success: function(data) {
-                getBasket();
-            }
-        });
-    });
-
-    getBasket();
 });

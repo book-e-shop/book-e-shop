@@ -6,44 +6,43 @@ $output = '';
 
 if (isset($_SESSION['logged_user'])) {
     if (isset($_SESSION['list_product'])) {
-        $is_head = false;
+
         $sum = 0;
         $list_product = $_SESSION['list_product'];
+       
+        $output .= '
+        <div class="container body-content">
+            <table class="table table-hover">
+            ';
 
-        for ($i = 0; $i < count($list_product); $i++) {
-            $book = mysqli_query($connect, "SELECT * FROM `books` WHERE `id` = '$list_product[$i]'");
-            $book = mysqli_fetch_assoc($book);
-
-            $output .= '
-            <div class="container body-content">
-                <table class="table table-hover">
-                ';
-
-            if (!$is_head) {
-                $output .= '<thead>
+        $output .= '<thead>
                             <tr>
                                 <th scope="col"></th>
                                 <th scope="col">Название книги</th>
                                 <th scope="col">Стоимость</th>
                                 <th scope="col"></th>
                             </tr>
-                        </thead>';
-                $is_head = true;
-            }
+                        </thead><tbody>';
+
+
+        foreach ($list_product as $i => $value) {
+            $book = mysqli_query($connect, "SELECT * FROM `books` WHERE `id` = '$list_product[$i]'");
+            $book = mysqli_fetch_assoc($book);
+
 
             $output .=
-                '<tbody>
+                '
                         <tr>
                             <td><img src="' . $book['cover'] . '" width="100px" height="150px"></td>
                             <td>' . $book['name'] . '</td>
                             <td>' . $book['price'] . ' руб.</td>
-                            <td><button deletedBookId="' . $list_product[$i] . '" class="btn btn-danger btn-sm rounded-0 deleteBook" type="button" data-toggle="tooltip" data-placement="top" title=""><i class="fa fa-trash"></i></button></td>
+                            <td><button   deletedBookId="' . $list_product[$i] . '" class="btn btn-danger btn-sm rounded-0 deleteBook" type="button"><i class="fa fa-trash"></i></button></td>
                         </tr>
-                    </tbody>';
+                   ';
 
-            $sum += intval($book['price']);            
+            $sum += intval($book['price']);
         }
-        $output .= '</table>
+        $output .= ' </tbody></table>
                 <br></br>
                 <h4>Общая стоимость: ' . $sum . ' руб.</h4>
                 <br></br>
