@@ -12,7 +12,7 @@ $user = mysqli_fetch_assoc($user);
 if (isset($_POST['add_order'])) {
 
     $create_table_query = "CREATE TABLE  `orders` (
-        `id` INT UNSIGNED NOT NULL AUTO INCREMENT,
+        `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
         `order_id` INT UNSIGNED,
         `book_id` INT UNSIGNED,
         `user_id` INT UNSIGNED,

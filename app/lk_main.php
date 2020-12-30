@@ -94,6 +94,8 @@ include getcwd() . "/header.php";
                                                     <th scope="col">Стоимость</th>
                                                 </tr>
                                             </thead><tbody>';
+
+                                            $is_head = true;
                                         }
                                         
                                         $book_id = $order['book_id'];
@@ -110,6 +112,8 @@ include getcwd() . "/header.php";
                                            ';
                                     }                                    
                                 }
+
+                                $output .= '</tbody></table>';
 
                                 echo $output;
                                 ?>
