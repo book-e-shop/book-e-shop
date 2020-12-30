@@ -1,6 +1,7 @@
 <?php
 
 require "db.php";
+require "logs.php";
 @session_start();
 
 $login = $_POST['login'];
@@ -15,6 +16,7 @@ if (mysqli_num_rows($check_user) > 0) {
     $user = mysqli_fetch_assoc($check_user);
 
     if (password_verify($_POST['password'], $user['password'])) {
+        add_log('users', $user['id'], 'Чтение', $user['id']);
 
         $response["result"] = TRUE;
         $_SESSION['logged_user'] = $user;

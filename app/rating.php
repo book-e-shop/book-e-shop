@@ -66,7 +66,6 @@ if ($action === "delete") {
 
     if (mysqli_query($connect, $delete_query)) {
         add_log('rating', mysqli_insert_id($connect), 'Удаление', $user_id);
-
     } else {
         echo mysqli_error($connect);
     }
@@ -98,6 +97,6 @@ if ($action === "get") {
         $total +=   $rate;
         $rating['r' . $rate] += 1;
     }
-    $rating['total'] = round($total, 2);
+    $rating['total'] = $count === 0 ? 0 : round($total / $count, 2);
     echo json_encode($rating);
 }

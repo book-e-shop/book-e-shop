@@ -1,5 +1,6 @@
 <?php
 require "db.php";
+require "logs.php";
 
 $book_id = $_SERVER['QUERY_STRING'];
 settype($book_id, 'integer');

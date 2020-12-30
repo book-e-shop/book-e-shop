@@ -5,7 +5,7 @@
 function add_log($table, $table_id, $action, $user_id)
 {
     require "db.php";
-    echo "Обзор успешно добавлена";
+
     $create_table_query = "CREATE TABLE  `logs` (
     `id` INT UNSIGNED NOT NULL   AUTO_INCREMENT,
     `user_id` INT UNSIGNED,
@@ -25,20 +25,17 @@ function add_log($table, $table_id, $action, $user_id)
 
 
     $insert_query = "INSERT INTO `logs` (`user_id`,`action`, `table`, `table_id`,`publish_date`)
-                         fieldS ('$user_id', '$action' , '$table','$table_id', NOW());
+                         VALUES ('$user_id', '$action' , '$table','$table_id', NOW());
                         ";
-    $result = mysqli_query($connect, $insert_query);
-    if ($result) {
-        $is_added = TRUE;
-    }
 
-    return mysqli_error($connect);
+    $result = mysqli_query($connect, $insert_query);
+    
 }
 
 
 function get_log()
 {
-     
+
     require "db.php";
     $WHERE = get_WHERE();
 
@@ -75,18 +72,34 @@ function get_WHERE()
         $v = 0;
         $WHERE = " WHERE ";
         foreach ($_POST['conditions'] as $key => $value) {
-
-            $WHERE =  $WHERE . "`{$key}` = '{$value}'";
-
-
-            if ($v < count($_POST['conditions']) - 1) {
-                $WHERE =  $WHERE . " AND ";
+            if (strpos($key, 'date') !== false) {
+                $time = date('Y-m-d H:i:s', strtotime($value));
+                if (strpos($key, 'date1') !== false) {
+                    $WHERE =  $WHERE . "`publish_date` >= '{$time}'";
+                    if ($v < count($_POST['conditions']) - 1) {
+                        $WHERE =  $WHERE . " AND ";
+                    }
+                    $v++;
+                }
+                if (strpos($key, 'date2') !== false) {
+                    $WHERE =  $WHERE . "`publish_date` <= '{$time}'";
+                    if ($v < count($_POST['conditions']) - 1) {
+                        $WHERE =  $WHERE . " AND ";
+                    }
+                    $v++;
+                }
+            } else {
+                $WHERE =  $WHERE . "`{$key}` = '{$value}'";
+                if ($v < count($_POST['conditions']) - 1) {
+                    $WHERE =  $WHERE . " AND ";
+                }
+                $v++;
             }
-            $v++;
         }
     }
     return $WHERE;
 }
+
 function get_options($field)
 {
 

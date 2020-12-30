@@ -1,7 +1,7 @@
 function getLogs(event) {
     $("#logs").html("")
-    var fields = ['user_id', 'action', 'table', 'table_id']
-    var conditions = getConditions(fields,'t1')
+    var fields = ['user_id', 'action', 'table', 'table_id', 'date1', 'date2']
+    var conditions = getConditions(fields, 't1')
     $.ajax({
         type: "POST",
         url: "/logs.php",
@@ -29,18 +29,27 @@ function getLogs(event) {
 function getConditions(fields, table) {
     var conditions = {};
     for (var i in fields) {
-        var val = $("#" + table + fields[i] + "-select option:selected").text();
-        if (val != "Все")
-            conditions[fields[i]] = val;
-    }
+        if (fields[i].includes('date')) {
+            var val = $("#" + table + fields[i]).val()
+            if (val.length > 1)
+                conditions[fields[i]] = val;
 
+        }
+        else {
+            var val = $("#" + table + fields[i] + "-select option:selected").text();
+            if (val != "Все")
+                conditions[fields[i]] = val;
+        }
+
+    }
+    console.log(conditions)
     return conditions
 }
 
 function updateOptionsT1() {
 
-    var fields = ['user_id', 'action', 'table', 'table_id']
-    var conditions = getConditions(fields,'t1')
+    var fields = ['user_id', 'action', 'table', 'table_id', 'date1', 'date2']
+    var conditions = getConditions(fields, 't1')
     console.log(conditions)
 
     for (var i in fields) {

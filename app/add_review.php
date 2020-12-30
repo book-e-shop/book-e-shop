@@ -1,6 +1,6 @@
 <?php
 require "db.php";
-
+require "logs.php";
 
 $create_table_query = "CREATE TABLE  `reviews` (
     `id` INT UNSIGNED NOT NULL   AUTO_INCREMENT,
@@ -35,6 +35,7 @@ $insert_query = "INSERT INTO `reviews` (`title`, `review`, `author`, `publish_da
 
 if (mysqli_query($connect, $insert_query)) {
     $is_added = TRUE;
+    add_log('reviews', mysqli_insert_id($connect), 'Добавление', $user_id);
 
     echo "Обзор успешно добавлена";
 }
