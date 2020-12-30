@@ -1,4 +1,5 @@
 <?php
+@session_start();
 require_once "db.php";
 
 $title = "Личный кабинет";
@@ -74,6 +75,45 @@ include getcwd() . "/header.php";
                 <div class="row">
                     <div class="col-sm">
                         <h1> Активные заказы<h1>
+                                <?php
+                                $output = '';
+
+                                if (isset($_SESSION['logged_user'])) {
+                                    $user_id = mysqli_real_escape_string($connect, $_SESSION['logged_user']['id']);
+                                    $orders = mysqli_query($connect, "SELECT * FROM `orders` WHERE `user_id` = '$user_id'");
+                                    $is_head = false;                                    
+                    
+                                    while ($order = mysqli_fetch_assoc($orders)) {
+                                        if (!$is_head) {
+                                            $output .= '
+                                            <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">Название книги</th>
+                                                    <th scope="col">Стоимость</th>
+                                                </tr>
+                                            </thead><tbody>';
+                                        }
+                                        
+                                        $book_id = $order['book_id'];
+                                        $book = mysqli_query($connect, "SELECT * FROM `books` WHERE `id` = '$book_id'");
+                                        $book = mysqli_fetch_assoc($book);
+                                        
+                                        $output .=
+                                            '
+                                            <tr>
+                                                <td><img src="' . $book['cover'] . '" width="100px" height="150px"></td>
+                                                <td>' . $book['name'] . '</td>
+                                                <td>' . $book['price'] . ' руб.</td>
+                                            </tr>
+                                           ';
+                                    }                                    
+                                }
+
+                                echo $output;
+                                ?>
+
                                 <hr>
                     </div>
                 </div>

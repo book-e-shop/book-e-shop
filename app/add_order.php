@@ -12,7 +12,8 @@ $user = mysqli_fetch_assoc($user);
 if (isset($_POST['add_order'])) {
 
     $create_table_query = "CREATE TABLE  `orders` (
-        `id` INT UNSIGNED NOT NULL,
+        `id` INT UNSIGNED NOT NULL AUTO INCREMENT,
+        `order_id` INT UNSIGNED,
         `book_id` INT UNSIGNED,
         `user_id` INT UNSIGNED,
         `payment_method` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci,
@@ -29,9 +30,9 @@ if (isset($_POST['add_order'])) {
         mysqli_query($connect, $create_table_query);
         $order_id = 1;
     } else {
-        $res_query = mysqli_query($connect, "SELECT id FROM `orders` ORDER BY id DESC LIMIT 1");
+        $res_query = mysqli_query($connect, "SELECT order_id FROM `orders` ORDER BY order_id DESC LIMIT 1");
         $order = mysqli_fetch_assoc($res_query);
-        $order_id = $order['id'] + 1;
+        $order_id = $order['order_id'] + 1;
     }
 
     $payment_method = mysqli_real_escape_string($connect, $_POST['payment_method']);
@@ -45,7 +46,7 @@ if (isset($_POST['add_order'])) {
 
         $book_id = $book['id'];
 
-        $insert_query = "INSERT INTO `orders` (`id`, `book_id`, `user_id`, `payment_method`, `address`, `add_date`)
+        $insert_query = "INSERT INTO `orders` (`order_id`, `book_id`, `user_id`, `payment_method`, `address`, `add_date`)
                             VALUES ('$order_id', '$book_id','$user_id', '$payment_method', '$address', CURDATE());
                             ";
 
