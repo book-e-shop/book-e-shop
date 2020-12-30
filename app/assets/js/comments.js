@@ -21,11 +21,11 @@ function addComment(event) {
 
 }
 
-function getComments(event) {
+async function getComments(event) {
     var query = window.location.href
     $("#comments").html("")
     var book_id = query.split("?")[1];
-    $.ajax({
+    await $.ajax({
         type: "POST",
         url: "/get_comments.php",
         data: { get: 'comments', conditions: { book_id: book_id } },
@@ -91,6 +91,7 @@ function deleteComment(event) {
         data: { comment_id: comment_id },
 
         success: function (response) {
+            console.log(response)
             getComments();
         },
         error: function (response) {

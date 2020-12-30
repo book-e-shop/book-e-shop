@@ -23,9 +23,9 @@ if (mysqli_query($connect, 'select 1 from `comments` LIMIT 1') === FALSE)
 
 echo mysqli_error($connect);
 
-$book_id = mysqli_real_escape_string($connect, $_POST['book_id']);
+$book_id = intval( $_POST['book_id']);
 $comment = mysqli_real_escape_string($connect, $_POST['comment']);
-$user_id = mysqli_real_escape_string($connect, $_SESSION['logged_user']['id']);
+$user_id = intval($_SESSION['logged_user']['id']);
 
 $insert_query = "INSERT INTO `comments` (`comment`,`publish_date`, `book_id`, `user_id`)
                          VALUES ('$comment', CURDATE() , '$book_id','$user_id');

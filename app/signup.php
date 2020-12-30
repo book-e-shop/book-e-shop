@@ -2,6 +2,8 @@
 
 
 require "db.php";
+require "logs.php";
+
 
 $name = $_POST['name'];
 $surname = $_POST['surname'];
@@ -44,11 +46,13 @@ if (mysqli_num_rows($check_user) != 0) {
 
 
 if (empty($errors)) {
+
     $response["result"] = TRUE;
     $response["message"] = "Авторизация проведена успешно!";
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    mysqli_query($connect, "INSERT INTO `users` (`id`, `login`, `email`, `name`, `surname`, `password`) VALUES (NULL, '$login', '$email', '$name', '$surname', '$password')");
+    $result =  mysqli_query($connect, "INSERT INTO `users` (`id`, `login`, `email`, `name`, `surname`, `password`) VALUES (NULL, '$login', '$email', '$name', '$surname', '$password')");
+    add_log('users',  mysqli_insert_id($connect), 'Добавление',  mysqli_insert_id($connect));
 } else {
 
     $response["result"] = FALSE;

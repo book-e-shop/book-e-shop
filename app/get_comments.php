@@ -28,7 +28,7 @@ function get_comments()
                     $comment['book_id'] = $c['book_id'];
                     $comment['id'] = $c['id'];
                     $user_id = $c['user_id'];
-
+                    $book_id = $c['book_id'];
                     if (mysqli_query($connect, 'select 1 from `users` LIMIT 1') !== FALSE) {
 
 
@@ -38,12 +38,21 @@ function get_comments()
                         $comment['author'] = $user['surname'] . " " . $user['name'];
                         $comment['author_id'] = $user_id;
                         if (isset($_SESSION['logged_user'])) {
-                            if ($_SESSION['logged_user']['id'] === $user_id) {
+                            if ($_SESSION['logged_user']['id'] === $user_id || $_SESSION['logged_user']['login'] === 'admin') {
                                 $comment['canEdit'] = TRUE;
                             }
                         } else {
                             $comment['canEdit'] = FALSE;
                         }
+                    }
+
+                    if (mysqli_query($connect, 'select 1 from `books` LIMIT 1') !== FALSE) {
+
+
+                        $result2 = mysqli_query($connect, "SELECT * FROM `books` WHERE `id` = '$book_id'");
+
+                        $book = mysqli_fetch_assoc($result2);
+                        $comment['book'] = $book['name'];
                     }
 
                     $comments[$count] = $comment;
@@ -61,16 +70,32 @@ function get_WHERE()
         $v = 0;
         $WHERE = " WHERE ";
         foreach ($_POST['conditions'] as $key => $value) {
-
-            $WHERE =  $WHERE . "`{$key}` = '{$value}'";
-
-
-            if ($v < count($_POST['conditions']) - 1) {
-                $WHERE =  $WHERE . " AND ";
+            if (strpos($key, 'date') !== false) {
+                $time = $value;
+                if (strpos($key, 'date1') !== false) {
+                    $WHERE =  $WHERE . "`publish_date` >= '{$time}'";
+                    if ($v < count($_POST['conditions']) - 1) {
+                        $WHERE =  $WHERE . " AND ";
+                    }
+                    $v++;
+                }
+                if (strpos($key, 'date2') !== false) {
+                    $WHERE =  $WHERE . "`publish_date` <= '{$time}'";
+                    if ($v < count($_POST['conditions']) - 1) {
+                        $WHERE =  $WHERE . " AND ";
+                    }
+                    $v++;
+                }
+            } else {
+                $WHERE =  $WHERE . "`{$key}` = '{$value}'";
+                if ($v < count($_POST['conditions']) - 1) {
+                    $WHERE =  $WHERE . " AND ";
+                }
+                $v++;
             }
-            $v++;
         }
     }
+
     return $WHERE;
 }
 

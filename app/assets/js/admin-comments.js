@@ -1,6 +1,6 @@
 function getComments(event) {
     $("#comments").html("")
-    var fields = ['user_id', 'book_id']
+    var fields = ['user_id', 'book_id', 'date1', 'date2']
     var conditions = getConditions(fields, 't2')
     $.ajax({
         type: "POST",
@@ -28,10 +28,10 @@ function getComments(event) {
 
 function updateOptionsT2() {
 
-    var fields = ['user_id', 'book_id']
+    var fields = ['user_id', 'book_id', 'date1', 'date2']
     var conditions = getConditions(fields, 't2')
 
-
+    console.log(conditions)
     for (var i in fields) {
 
         $.ajax({
