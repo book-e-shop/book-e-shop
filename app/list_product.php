@@ -48,18 +48,8 @@ if (isset($_SESSION['logged_user'])) {
                 <br></br>
                 <a href="/add_order.php" class="btn btn-primary" name="createOrder" id="createOrder" role="button">Оформить заказ</a>
             </div>';
-    } else {
-        $output .= '<div class="container body-content h-100 d-flex justify-content-center">
-                    <h4 class="display-4">В корзине пусто</h4>
-                </div>
-            </div>';
-    }
-} else {
-    $output .= '<div class="container body-content h-100 d-flex justify-content-center">
-                <h4 class="display-4">Для начала покупок необходимо авторизоваться</h4>
-            </div>
-        </div>';
-}
+    } 
+} 
 
 $_SESSION['sum_order'] = $sum;
 $arr_output['output'] = $output;
